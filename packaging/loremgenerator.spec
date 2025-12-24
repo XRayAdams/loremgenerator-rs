@@ -9,8 +9,8 @@ Release: %{_release}
 Summary: Lorem Ipsum Generator
 License: MIT
 Group: Applications/Utilities
-URL: https://github.com/XRayAdams/loremgenerator
-BugURL: https://github.com/XRayAdams/loremgenerator/issues
+URL: https://github.com/XRayAdams/loremgenerator-rs
+BugURL: https://github.com/XRayAdams/loremgenerator-rs/issues
 Vendor: Konstantin Adamov
 
 Source0: %{_name}-%{_version}.tar.gz
