@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>loremgenerator.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <name>Lorem Ipsum Generator</name>
+  <summary>A simple and free utility to generate standard Lorem Ipsum text</summary>
+  <url type="homepage">https://github.com/XRayAdams/loremgenerator-rs</url>
+  <content_rating type="oars-1.1"><category>Age 3+</category></content_rating>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/XRayAdams/loremgenerator-rs/refs/heads/main/screenshots/screenshot01.png</image>
+      <caption>Main window UI</caption>
+    </screenshot>
+    <screenshot >
+      <image>https://raw.githubusercontent.com/XRayAdams/loremgenerator-rs/refs/heads/main/screenshots/screenshot02.png</image>
+      <caption>Main window UI</caption>
+    </screenshot>
+    <screenshot >
+      <image>https://raw.githubusercontent.com/XRayAdams/loremgenerator-rs/refs/heads/main/screenshots/screenshot03.png</image>
+      <caption>Main window UI</caption>
+    </screenshot>
+  </screenshots>
+</component>

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=2.1.1+21
+Name=Lorem Ipsum Generator
+GenericName=Lorem Ipsum Generator
+Comment=Lorem Ipsum Generator
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=Lorem, Ipsum, Lorem Ipsum, Generator;
+Icon=${SNAP}/meta/gui/loremgenerator.png
+Exec=loremgenerator
+StartupWMClass=app.rayadams.loremgenerator
