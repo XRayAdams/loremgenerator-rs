@@ -1,37 +1,318 @@
+use adw::ToastOverlay;
 use gtk4::prelude::*;
+use gtk4::{Align, PolicyType, TextBuffer, TextView, IconTheme, glib};
 use libadwaita as adw;
-use gtk4::{Application, ApplicationWindow, Box as GtkBox, TextView, 
-           MenuButton, gio, HeaderBar, IconTheme, ScrolledWindow, PolicyType, Switch, Label, Align, glib};
-use std::cell::RefCell;
-use std::rc::Rc;
+use relm4::actions::{RelmActionGroup};
+use relm4::prelude::*;
+use serde::{Deserialize, Serialize};
+use std::fs;
+use std::path::PathBuf;
 
-mod static_data;
-mod view_model;
 mod helpers;
-use view_model::AppViewModel;
-use helpers::utils::create_labeled_spin;
+use helpers::generator::generate;
+use helpers::static_data::{APP_ID, APP_NAME};
+use helpers::number_editor::{CounterOutput, NumberEditor};
+use helpers::actions::{create_about_action, AboutAction, WindowActionGroup};
 
 const SPACING_MEDIUM: i32 = 12;
 const SPACING_LARGE: i32 = 18;
 
-fn main() {
-    adw::init().expect("Failed to initialize Libadwaita");
-    let app = Application::builder()
-        .application_id("app.rayadams.loremgenerator")
-        .flags(gio::ApplicationFlags::NON_UNIQUE)
-        .build();
-
-    app.connect_activate(build_ui);
-
-    app.run();
-
+#[derive(Serialize, Deserialize)]
+struct AppSettings {
+    max_words: usize,
+    max_sentences: usize,
+    paragraphs: usize,
+    start_with_lorem: bool,
 }
 
-fn build_ui(app: &Application) {
+impl Default for AppSettings {
+    fn default() -> Self {
+        AppSettings {
+            max_words: 15,
+            max_sentences: 4,
+            paragraphs: 5,
+            start_with_lorem: true,
+        }
+    }
+}
+struct App {
+    max_words: usize,
+    max_sentences: usize,
+    paragraphs: usize,
+    start_with_lorem: bool,
+    result_text: String,
+    max_words_widget: Controller<NumberEditor>,
+    max_sentences_widget: Controller<NumberEditor>,
+    max_paragraphs_widget: Controller<NumberEditor>,
+    toast_overlay: Option<ToastOverlay>,
+    text_view: Option<TextView>,
+}
+
+#[derive(Debug)]
+enum Messages {
+    Generate,
+    UpdateMaxWords(usize),
+    UpdateMaxSentences(usize),
+    UpdateParagraphs(usize),
+    ToggleStartWithLorem(bool),
+    CopyToClipboard,
+}
+
+impl App {
+    fn get_config_path() -> PathBuf {
+        let mut path = gtk4::glib::user_config_dir();
+        path.push("loremgenerator");
+        std::fs::create_dir_all(&path).ok();
+        path.push("config.json");
+        path
+    }
+
+    fn save_config(&self) {
+        let settings = AppSettings {
+            max_words: self.max_words,
+            max_sentences: self.max_sentences,
+            paragraphs: self.paragraphs,
+            start_with_lorem: self.start_with_lorem,
+        };
+        if let Ok(content) = serde_json::to_string_pretty(&settings) {
+            let path = Self::get_config_path();
+            let _ = fs::write(path, content);
+        }
+    }
+
+    fn load_config() -> AppSettings {
+        let path = Self::get_config_path();
+        if let Ok(content) = fs::read_to_string(path) {
+            if let Ok(settings) = serde_json::from_str::<AppSettings>(&content) {
+                return settings;
+            }
+        }
+        AppSettings::default()
+    }
+
+    fn get_app_version() -> &'static str {
+        env!("CARGO_PKG_VERSION")
+    }
+}
+
+#[relm4::component]
+impl SimpleComponent for App {
+    type Init = ();
+    type Input = Messages;
+    type Output = ();
+
+    menu! {
+        main_menu: {
+            section! {
+                "_About" => AboutAction,
+            }
+        }
+    }
+
+    view! {
+        #[root]
+        main_window = adw::ApplicationWindow {
+            set_visible: true,
+            set_title: Some(APP_NAME),
+            set_default_size: (800, 600),
+
+            #[name = "toast_overlay"]
+            adw::ToastOverlay {
+
+                gtk::Box {
+                    set_orientation: gtk::Orientation::Vertical,
+
+                    adw::HeaderBar {
+                        pack_end = &gtk::MenuButton {
+                            set_icon_name: "open-menu-symbolic",
+                            set_menu_model: Some(&main_menu),
+                            set_direction: gtk::ArrowType::Down,
+                            set_can_focus: false,
+                        }
+                    },
+
+                    gtk::Box{
+                        set_orientation: gtk::Orientation::Horizontal,
+                        set_spacing: SPACING_MEDIUM,
+                        set_margin_horizontal: SPACING_MEDIUM,
+                        set_margin_top: SPACING_MEDIUM,
+
+                        model.max_words_widget.widget(),
+                        model.max_sentences_widget.widget(),
+                        model.max_paragraphs_widget.widget(),
+
+                        gtk::Box{
+                            set_orientation: gtk::Orientation::Vertical,
+                            set_spacing: 5,
+                            set_halign: Align::Center,
+                            gtk::Label{
+                                set_label: "Start with 'Lorem ipsum'",
+                            },
+                            gtk::Switch{
+                                set_active: model.start_with_lorem,
+                                set_halign: Align::Center,
+                                connect_state_set[sender] => move |_, state| {
+                                    let _ = sender.input(Messages::ToggleStartWithLorem(state));
+                                    glib::Propagation::Proceed
+                                },
+                            }
+                        },
+
+
+                    },
+                    gtk::Box{
+                        set_orientation: gtk::Orientation::Vertical,
+                        set_margin_horizontal: SPACING_MEDIUM,
+                        set_margin_top: SPACING_MEDIUM,
+
+                        gtk::ScrolledWindow {
+                            set_hscrollbar_policy: PolicyType::Never,
+                            set_vexpand: true,
+                            set_hexpand: true,
+
+                            #[name = "result_text_view"]
+                            gtk::TextView {
+                                set_editable: false,
+                                set_wrap_mode: gtk::WrapMode::Word,
+                                set_left_margin: SPACING_MEDIUM,
+                                set_right_margin: SPACING_MEDIUM,
+                                set_top_margin: SPACING_MEDIUM,
+                                set_bottom_margin: SPACING_MEDIUM,
+                                set_vexpand: true,
+                                add_css_class: "card",
+                                #[watch]
+                                set_buffer: Some(&TextBuffer::builder()
+                                    .text(model.result_text.as_str())
+                                    .build()
+                                ),
+                            },
+                        },
+                    },
+
+                    gtk::Box{
+                        set_halign: Align::Start,
+                        set_spacing: SPACING_LARGE,
+                        set_margin_horizontal: SPACING_MEDIUM,
+                        set_margin_vertical: SPACING_MEDIUM,
+                        gtk::Button::with_mnemonic("_Generate") {
+                            set_halign: Align::Start,
+                            connect_clicked[sender] => move |_| {
+                                sender.input(Messages::Generate);
+                            },
+                        },
+                        gtk::Button::with_mnemonic("_Copy to Clipboard") {
+                            #[watch]
+                            set_sensitive: !model.result_text.is_empty(),
+                            set_halign: Align::Start,
+                            connect_clicked[sender] => move|_| {
+                                sender.input(Messages::CopyToClipboard);
+                            },
+                        },
+                    },
+                }
+            }
+        }
+    }
+
+    fn init(
+        _init: Self::Init,
+        root: Self::Root,
+        sender: ComponentSender<Self>,
+    ) -> ComponentParts<Self> {
+        let settings = Self::load_config();
+
+        let mut model = Self {
+            max_words: settings.max_words,
+            max_sentences: settings.max_sentences,
+            paragraphs: settings.paragraphs,
+            result_text: String::new(),
+            start_with_lorem: settings.start_with_lorem,
+            toast_overlay: None,
+            text_view: None,
+            max_words_widget: NumberEditor::builder()
+                .launch(("Max Words".to_string(), 1, 100, settings.max_words))
+                .forward(sender.input_sender(), |output| match output {
+                    CounterOutput::ValueChanged(value) => Messages::UpdateMaxWords(value),
+                }),
+            max_sentences_widget: NumberEditor::builder()
+                .launch(("Max Sentences".to_string(), 1, 20, settings.max_sentences))
+                .forward(sender.input_sender(), |output| match output {
+                    CounterOutput::ValueChanged(value) => Messages::UpdateMaxSentences(value),
+                }),
+            max_paragraphs_widget: NumberEditor::builder()
+                .launch(("Paragraphs".to_string(), 1, 50, settings.paragraphs))
+                .forward(sender.input_sender(), |output| match output {
+                    CounterOutput::ValueChanged(value) => Messages::UpdateParagraphs(value),
+                }),
+        };
+
+        let widgets = view_output!();
+
+        model.toast_overlay = Some(widgets.toast_overlay.clone());
+        model.text_view = Some(widgets.result_text_view.clone());
+
+        let about_action = create_about_action(widgets.main_window.clone(), Self::get_app_version());
+
+        let mut window_actions = RelmActionGroup::<WindowActionGroup>::new();
+        window_actions.add_action(about_action);
+        window_actions.register_for_widget(&widgets.main_window);
+        
+        ComponentParts { model, widgets }
+    }
+
+    fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>) {
+        match message {
+            Messages::UpdateMaxWords(value) => {
+                self.max_words = value;
+                self.save_config();
+            }
+            Messages::UpdateMaxSentences(value) => {
+                self.max_sentences = value;
+                self.save_config();
+            }
+            Messages::UpdateParagraphs(value) => {
+                self.paragraphs = value;
+                self.save_config();
+            }
+            Messages::ToggleStartWithLorem(state) => {
+                self.start_with_lorem = state;
+                self.save_config();
+            }
+            Messages::Generate => {
+                self.result_text = generate(
+                    self.start_with_lorem,
+                    self.paragraphs,
+                    self.max_sentences,
+                    self.max_words,
+                );
+
+                self.text_view
+                    .clone()
+                    .unwrap()
+                    .buffer()
+                    .set_text(self.result_text.as_str());
+            }
+            Messages::CopyToClipboard => {
+                self.text_view
+                    .clone()
+                    .unwrap()
+                    .clipboard()
+                    .set_text(self.result_text.as_str());
+
+                self.toast_overlay
+                    .clone()
+                    .unwrap()
+                    .add_toast(adw::Toast::new("Copied to clipboard"));
+            }
+        }
+    }
+}
+
+fn main() {
+    adw::init().expect("Failed to initialize Libadwaita");
+
     let display = gtk4::gdk::Display::default().expect("Could not get default display.");
     let icon_theme = IconTheme::for_display(&display);
-
-        // Check if running in Snap environment
     if let Ok(snap_path) = std::env::var("SNAP") {
         let assets_path = std::path::Path::new(&snap_path).join("assets");
         icon_theme.add_search_path(assets_path);
@@ -60,173 +341,6 @@ fn build_ui(app: &Application) {
         }
     }
 
-    let view_model = Rc::new(RefCell::new(AppViewModel::new()));
-    
-    let window = ApplicationWindow::builder()
-        .title("Lorem Ipsum Generator")
-        .default_width(720)
-        .default_height(600)
-        .application(app)
-        .build();
-
-    let header_bar = HeaderBar::new();
-
-    let menu = gio::Menu::new();
-    menu.append(Some("About"), Some("app.about"));
-    
-    let menu_button = MenuButton::builder()
-        .icon_name("open-menu-symbolic")
-        .menu_model(&menu)
-        .build();
-    
-    header_bar.pack_end(&menu_button);
-    
-    window.set_titlebar(Some(&header_bar));
-
-        let about_action = gio::SimpleAction::new("about", None);
-    let window_clone = window.clone();
-
-    about_action.connect_activate(move |_, _| {
-        let about = adw::AboutWindow::builder()
-            .application_name("Lorem Ipsum Generator")
-            .application_icon("app.rayadams.loremgenerator")
-            .version(AppViewModel::get_app_version())
-            .developers(vec!["Konstantin Adamov".to_string()])
-            .website("https://github.com/xrayadams/loremgenerator-sr")
-            .issue_url("https://github.com/xrayadams/loremgenerator-rs/issues")
-            .license_type(gtk4::License::MitX11)
-            .transient_for(&window_clone)
-            .modal(true)
-            .build();
-        about.present();
-    });
-    app.add_action(&about_action);
-
-
-    let vbox = GtkBox::builder()
-        .orientation(gtk4::Orientation::Vertical)
-        .spacing(SPACING_LARGE)
-        .margin_start(SPACING_MEDIUM)
-        .margin_end(SPACING_MEDIUM)
-        .margin_top(SPACING_MEDIUM)
-        .margin_bottom(SPACING_MEDIUM)
-        .build();
-    
-    let input_box = GtkBox::new(gtk4::Orientation::Horizontal, SPACING_LARGE);
-
-    let (box_words, spin_words) = create_labeled_spin("Max Words", 3, 25, view_model.borrow().max_words as i32);
-    let (box_sentences, spin_sentences) = create_labeled_spin("Max Sentences", 1, 20, view_model.borrow().max_sentences as i32);
-    let (box_paragraphs, spin_paragraphs) = create_labeled_spin("Paragraphs", 1, 40, view_model.borrow().paragraphs as i32);
-
-    input_box.append(&box_words);
-    input_box.append(&box_sentences);
-    input_box.append(&box_paragraphs);
-
-    let switch_box = GtkBox::new(gtk4::Orientation::Vertical, 6);
-    let switch_label = Label::builder()
-        .label("Start with Lorem")
-        .halign(Align::Start)
-        .build();
-    let switch = Switch::builder()
-        .active(view_model.borrow().start_with_lorem)
-        .halign(Align::Center)
-        .build();
-    
-    switch_box.append(&switch_label);
-    switch_box.append(&switch);
-    input_box.append(&switch_box);
-
-    // Connect signals to update ViewModel
-    let vm = view_model.clone();
-    switch.connect_state_set(move |_, state| {
-        vm.borrow_mut().set_start_with_lorem(state);
-        glib::Propagation::Proceed
-    });
-
-    let vm = view_model.clone();
-    spin_words.connect_value_changed(move |spin| {
-        vm.borrow_mut().set_max_words(spin.value() as usize);
-    });
-
-    let vm = view_model.clone();
-    spin_sentences.connect_value_changed(move |spin| {
-        vm.borrow_mut().set_max_sentences(spin.value() as usize);
-    });
-
-    let vm = view_model.clone();
-    spin_paragraphs.connect_value_changed(move |spin| {
-        vm.borrow_mut().set_paragraphs(spin.value() as usize);
-    });
-
-    vbox.append(&input_box);
-
-    // Create TextView inside ScrolledWindow for output
-    let text_view = TextView::builder()
-        .editable(false)
-        .tooltip_text("Output")
-        .wrap_mode(gtk4::WrapMode::Word)
-        .left_margin(SPACING_MEDIUM)
-        .right_margin(SPACING_MEDIUM)
-        .top_margin(SPACING_MEDIUM)
-        .bottom_margin(SPACING_MEDIUM)
-        .css_classes(vec!["card"])
-        .build();
-
-    let scrolled_window = ScrolledWindow::builder()
-        .hscrollbar_policy(PolicyType::Never)
-        .child(&text_view)
-        .vexpand(true)
-        .hexpand(true)
-        .build();
-
-    vbox.append(&scrolled_window);
-
-    // Create Buttons inside a Box, horizontally aligned
-    let button_box = GtkBox::new(gtk4::Orientation::Horizontal, SPACING_LARGE);
-
-    let generate_button = gtk4::Button::with_mnemonic("_Generate");
-    generate_button.set_halign(gtk4::Align::Start);
-
-    let copy_button = gtk4::Button::with_mnemonic("_Copy to Clipboard");
-    copy_button.set_halign(gtk4::Align::Start);
-    
-    // Initially disable copy button if there's no text
-    let buffer = text_view.buffer();
-    copy_button.set_sensitive(!buffer.text(&buffer.start_iter(), &buffer.end_iter(), true).is_empty());
-
-    // Update copy button sensitivity based on text buffer changes
-    let copy_button_clone = copy_button.clone();
-    buffer.connect_changed(move |buf| {
-        let is_empty = buf.text(&buf.start_iter(), &buf.end_iter(), true).is_empty();
-        copy_button_clone.set_sensitive(!is_empty);
-    });
-
-    button_box.append(&generate_button);
-    button_box.append(&copy_button);
-    vbox.append(&button_box);
-    
-    let toast_overlay = adw::ToastOverlay::new();
-    toast_overlay.set_child(Some(&vbox));
-
-    let text_view_clone = text_view.clone();
-    let vm = view_model.clone();
-    generate_button.connect_clicked(move |_| {
-        let lorem_text = vm.borrow().generate();
-        text_view_clone.buffer().set_text(&lorem_text);
-    });
-
-    let text_view_clone = text_view.clone();
-    let toast_overlay_clone = toast_overlay.clone();
-    copy_button.connect_clicked(move |_| {
-        let buffer = text_view_clone.buffer();
-        let (start, end) = buffer.bounds();
-        let text = buffer.text(&start, &end, true);
-        text_view_clone.clipboard().set_text(&text);
-        
-        let toast = adw::Toast::new("Copied to clipboard");
-        toast_overlay_clone.add_toast(toast);
-    });
-
-    window.set_child(Some(&toast_overlay));
-    window.show();
+    let app = RelmApp::new(APP_ID);
+    app.run::<App>(());
 }
