@@ -1,6 +1,6 @@
 # Lorem Ipsum Generator
 
-A simple and configurable Lorem Ipsum generator built with Rust and GTK4.
+A simple and configurable Lorem Ipsum generator built with Rust, GTK4 and Relm4.
 
 ## Features
 

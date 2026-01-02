@@ -258,3 +258,6 @@ impl StaticData {
         "ipsum",
     ];
 }
+
+pub static APP_ID: &str = "app.rayadams.loremgenerator";
+pub static APP_NAME: &str = "Lorem Ipsum Generator";
