@@ -29,6 +29,7 @@ APP_BUILD=$(echo "$APP_VERSION_LONG" | cut -d'+' -f2)
 
 # Set app versions to all files for packaging
 packaging/set_app_versions.sh
+rm -rf dist
 mkdir -p dist
 
 PACKAGE_DIR="$APP_NAME-$APP_VERSION+$APP_BUILD-$DEBIAN_ARCH"

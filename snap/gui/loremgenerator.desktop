@@ -1,5 +1,5 @@
 [Desktop Entry]
-Version=2.1.2+24
+Version=2.1.3+26
 Name=Lorem Ipsum Generator
 GenericName=Lorem Ipsum Generator
 Comment=Lorem Ipsum Generator
@@ -9,4 +9,4 @@ Categories=Utility;
 Keywords=Lorem, Ipsum, Lorem Ipsum, Generator;
 Icon=${SNAP}/meta/gui/loremgenerator.png
 Exec=loremgenerator
-StartupWMClass=app.rayadams.loremgenerator
+StartupWMClass=loremgenerator
