@@ -538,7 +538,7 @@ dependencies = [
 
 [[package]]
 name = "loremgenerator"
-version = "2.1.4+27"
+version = "2.1.4+28"
 dependencies = [
  "gtk4",
  "libadwaita",
