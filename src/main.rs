@@ -1,18 +1,18 @@
 use adw::ToastOverlay;
 use gtk4::prelude::*;
-use gtk4::{Align, PolicyType, TextBuffer, TextView, IconTheme, glib};
+use gtk4::{Align, IconTheme, PolicyType, TextBuffer, TextView, glib};
 use libadwaita as adw;
-use relm4::actions::{RelmActionGroup};
+use relm4::actions::RelmActionGroup;
 use relm4::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;
 
 mod helpers;
+use helpers::actions::{AboutAction, WindowActionGroup, create_about_action};
 use helpers::generator::generate;
-use helpers::static_data::{APP_ID, APP_NAME};
 use helpers::number_editor::{CounterOutput, NumberEditor};
-use helpers::actions::{create_about_action, AboutAction, WindowActionGroup};
+use helpers::static_data::{APP_ID, APP_NAME};
 
 const SPACING_MEDIUM: i32 = 12;
 const SPACING_LARGE: i32 = 18;
@@ -251,12 +251,13 @@ impl SimpleComponent for App {
         model.toast_overlay = Some(widgets.toast_overlay.clone());
         model.text_view = Some(widgets.result_text_view.clone());
 
-        let about_action = create_about_action(widgets.main_window.clone(), Self::get_app_version());
+        let about_action =
+            create_about_action(widgets.main_window.clone(), Self::get_app_version());
 
         let mut window_actions = RelmActionGroup::<WindowActionGroup>::new();
         window_actions.add_action(about_action);
         window_actions.register_for_widget(&widgets.main_window);
-        
+
         ComponentParts { model, widgets }
     }
 
@@ -311,36 +312,46 @@ impl SimpleComponent for App {
 fn main() {
     adw::init().expect("Failed to initialize Libadwaita");
 
-    let display = gtk4::gdk::Display::default().expect("Could not get default display.");
-    let icon_theme = IconTheme::for_display(&display);
-    if let Ok(snap_path) = std::env::var("SNAP") {
-        let assets_path = std::path::Path::new(&snap_path).join("assets");
-        icon_theme.add_search_path(assets_path);
-    } else {
-        // Fallback for local development
-        icon_theme.add_search_path("assets");
+    gtk4::init().expect("Failed to initialize GTK");
 
-        // Check paths relative to the executable
-        if let Ok(exe_path) = std::env::current_exe() {
-            if let Some(exe_dir) = exe_path.parent() {
-                // 1. Assets next to executable (e.g. portable tarball)
-                let local_assets = exe_dir.join("assets");
-                if local_assets.exists() {
-                    icon_theme.add_search_path(local_assets);
-                }
+    let gtk_app = adw::Application::builder()
+        .application_id(APP_ID)
+        .flags(gtk4::gio::ApplicationFlags::NON_UNIQUE)
+        .build();
 
-                // 2. Standard Linux install: ../share/loremgenerator/assets
-                // (assuming binary is in /usr/bin or /usr/local/bin)
-                if let Some(prefix) = exe_dir.parent() {
-                    let system_assets = prefix.join("share").join("loremgenerator").join("assets");
-                    if system_assets.exists() {
-                        icon_theme.add_search_path(system_assets);
+    gtk_app.connect_activate(|_| {
+        let display = gtk4::gdk::Display::default().expect("Could not get default display.");
+        let icon_theme = IconTheme::for_display(&display);
+        if let Ok(snap_path) = std::env::var("SNAP") {
+            let assets_path = std::path::Path::new(&snap_path).join("assets");
+            icon_theme.add_search_path(assets_path);
+        } else {
+            // Fallback for local development
+            icon_theme.add_search_path("assets");
+
+            // Check paths relative to the executable
+            if let Ok(exe_path) = std::env::current_exe() {
+                if let Some(exe_dir) = exe_path.parent() {
+                    // 1. Assets next to executable (e.g. portable tarball)
+                    let local_assets = exe_dir.join("assets");
+                    if local_assets.exists() {
+                        icon_theme.add_search_path(local_assets);
+                    }
+
+                    // 2. Standard Linux install: ../share/loremgenerator/assets
+                    // (assuming binary is in /usr/bin or /usr/local/bin)
+                    if let Some(prefix) = exe_dir.parent() {
+                        let system_assets =
+                            prefix.join("share").join("loremgenerator").join("assets");
+                        if system_assets.exists() {
+                            icon_theme.add_search_path(system_assets);
+                        }
                     }
                 }
             }
         }
-    }
+    });
 
-    let app = RelmApp::new(APP_ID);
+    let app = RelmApp::from_app(gtk_app);
     app.run::<App>(());
 }
