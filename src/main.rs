@@ -7,8 +7,12 @@ use relm4::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;
+use clap::Parser;
 
+mod cli;
 mod helpers;
+
+use cli::CliArgs;
 use helpers::actions::{AboutAction, WindowActionGroup, create_about_action};
 use helpers::generator::generate;
 use helpers::number_editor::{CounterOutput, NumberEditor};
@@ -310,16 +314,36 @@ impl SimpleComponent for App {
 }
 
 fn main() {
-    adw::init().expect("Failed to initialize Libadwaita");
+    let args = CliArgs::parse();
 
-    gtk4::init().expect("Failed to initialize GTK");
+    // Check if any CLI arguments were provided
+    let is_cli_mode = args.paragraphs.is_some()
+        || args.max_sentences.is_some()
+        || args.max_words.is_some();
 
-    let gtk_app = adw::Application::builder()
-        .application_id(APP_ID)
-        .flags(gtk4::gio::ApplicationFlags::NON_UNIQUE)
-        .build();
+    if is_cli_mode {
+        // CLI mode - generate and print to stdout
+        let defaults = AppSettings::default();
+        
+        let start_with_lorem = args.start_with_lorem == 1;
+        let paragraphs = args.paragraphs.unwrap_or(defaults.paragraphs);
+        let max_sentences = args.max_sentences.unwrap_or(defaults.max_sentences);
+        let max_words = args.max_words.unwrap_or(defaults.max_words);
 
-    gtk_app.connect_activate(|_| {
+        let result = generate(start_with_lorem, paragraphs, max_sentences, max_words);
+        println!("{}", result);
+    } else {
+        // GUI mode - launch the application
+        adw::init().expect("Failed to initialize Libadwaita");
+
+        gtk4::init().expect("Failed to initialize GTK");
+
+        let gtk_app = adw::Application::builder()
+            .application_id(APP_ID)
+            .flags(gtk4::gio::ApplicationFlags::NON_UNIQUE)
+            .build();
+
+        gtk_app.connect_activate(|_| {
         let display = gtk4::gdk::Display::default().expect("Could not get default display.");
         let icon_theme = IconTheme::for_display(&display);
         if let Ok(snap_path) = std::env::var("SNAP") {
@@ -352,6 +376,7 @@ fn main() {
         }
     });
 
-    let app = RelmApp::from_app(gtk_app);
-    app.run::<App>(());
+        let app = RelmApp::from_app(gtk_app);
+        app.run::<App>(());
+    }
 }
