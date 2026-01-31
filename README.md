@@ -10,6 +10,47 @@ A simple and configurable Lorem Ipsum generator built with Rust, GTK4 and Relm4.
     *   Set the max random number of sentences.
     *   Set the number of paragraphs.
 *   **"Lorem Ipsum" Prefix:** Choose whether to start the generated text with the classic "Lorem ipsum dolor sit amet...".
+*   **GUI and CLI Modes:** Use it with a graphical interface or from the command line.
+
+## Usage
+
+### GUI Mode
+
+Simply run the application without any arguments to launch the graphical interface:
+
+```bash
+loremgenerator
+```
+
+### CLI Mode
+
+Generate Lorem Ipsum text directly from the command line:
+
+```bash
+# Basic usage with defaults (starts with "Lorem ipsum", 5 paragraphs, max 4 sentences, max 15 words)
+loremgenerator -p=3
+
+# Full customization
+loremgenerator -s=1 -p=5 -m=4 -w=15
+
+# Without "Lorem ipsum" prefix
+loremgenerator -s=0 -p=2 -m=3 -w=10
+
+# Show help
+loremgenerator --help
+
+# Show version
+loremgenerator -v
+```
+
+#### CLI Options
+
+*   `-s, --start-with-lorem <0|1>` - Start with 'Lorem ipsum' (1 for true, 0 for false) [default: 1]
+*   `-p, --paragraphs <NUMBER>` - Number of paragraphs
+*   `-m, --ms <NUMBER>` - Maximum sentences per paragraph
+*   `-w, --max-words <NUMBER>` - Maximum words per sentence
+*   `-v, --version` - Print version
+*   `-h, --help` - Print help
 
 ## License
 

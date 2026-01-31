@@ -1,6 +1,6 @@
 [package]
 name = "loremgenerator"
-version = "2.1.5+29"
+version = "2.2.6+32"
 edition = "2024"
 
 [dependencies]
@@ -13,3 +13,4 @@ libadwaita = { version = "0.8", features = ["v1_5"] }
 rand = "0.8"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.147"
+clap = { version = "4.5", features = ["derive"] }
