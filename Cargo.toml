@@ -1,6 +1,6 @@
 [package]
 name = "loremgenerator"
-version = "2.2.6+32"
+version = "2.2.7+35"
 edition = "2024"
 
 [dependencies]

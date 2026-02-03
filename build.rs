@@ -1,3 +1,5 @@
+// Copyright (c) 2025, 2026 Konstantin Adamov. Licensed under MIT.
+
 use std::env;
 use std::fs;
 use std::path::Path;

@@ -1,3 +1,5 @@
+// Copyright (c) 2025, 2026 Konstantin Adamov. Licensed under MIT.
+
 // StaticData.rs
 // Converted from the provided class to Rust style
 
