@@ -1,3 +1,5 @@
+// Copyright (c) 2025, 2026 Konstantin Adamov. Licensed under MIT.
+
 use adw::ToastOverlay;
 use gtk4::prelude::*;
 use gtk4::{Align, IconTheme, PolicyType, TextBuffer, TextView, glib};
@@ -15,7 +17,7 @@ mod helpers;
 use cli::CliArgs;
 use helpers::actions::{AboutAction, WindowActionGroup, create_about_action};
 use helpers::generator::generate;
-use helpers::number_editor::{CounterOutput, NumberEditor};
+use helpers::number_editor::NumberEditor;
 use helpers::static_data::{APP_ID, APP_NAME};
 
 const SPACING_MEDIUM: i32 = 12;
@@ -45,9 +47,6 @@ struct App {
     paragraphs: usize,
     start_with_lorem: bool,
     result_text: String,
-    max_words_widget: Controller<NumberEditor>,
-    max_sentences_widget: Controller<NumberEditor>,
-    max_paragraphs_widget: Controller<NumberEditor>,
     toast_overlay: Option<ToastOverlay>,
     text_view: Option<TextView>,
 }
@@ -141,9 +140,35 @@ impl SimpleComponent for App {
                         set_margin_horizontal: SPACING_MEDIUM,
                         set_margin_top: SPACING_MEDIUM,
 
-                        model.max_words_widget.widget(),
-                        model.max_sentences_widget.widget(),
-                        model.max_paragraphs_widget.widget(),
+                        NumberEditor {
+                            set_label: "Max Words",
+                            set_min: 6.0,
+                            set_max: 100.0,
+                            set_value: model.max_words as f64,
+                            connect_value_changed[sender] => move |_, value| {
+                                sender.input(Messages::UpdateMaxWords(value as usize));
+                            },
+                        },
+
+                        NumberEditor {
+                            set_label: "Max Sentences",
+                            set_min: 1.0,
+                            set_max: 20.0,
+                            set_value: model.max_sentences as f64,
+                            connect_value_changed[sender] => move |_, value| {
+                                sender.input(Messages::UpdateMaxSentences(value as usize));
+                            },
+                        },
+
+                        NumberEditor {
+                            set_label: "Paragraphs",
+                            set_min: 1.0,
+                            set_max: 50.0,
+                            set_value: model.paragraphs as f64,
+                            connect_value_changed[sender] => move |_, value| {
+                                sender.input(Messages::UpdateParagraphs(value as usize));
+                            },
+                        },
 
                         gtk::Box{
                             set_orientation: gtk::Orientation::Vertical,
@@ -233,21 +258,6 @@ impl SimpleComponent for App {
             start_with_lorem: settings.start_with_lorem,
             toast_overlay: None,
             text_view: None,
-            max_words_widget: NumberEditor::builder()
-                .launch(("Max Words".to_string(), 1, 100, settings.max_words))
-                .forward(sender.input_sender(), |output| match output {
-                    CounterOutput::ValueChanged(value) => Messages::UpdateMaxWords(value),
-                }),
-            max_sentences_widget: NumberEditor::builder()
-                .launch(("Max Sentences".to_string(), 1, 20, settings.max_sentences))
-                .forward(sender.input_sender(), |output| match output {
-                    CounterOutput::ValueChanged(value) => Messages::UpdateMaxSentences(value),
-                }),
-            max_paragraphs_widget: NumberEditor::builder()
-                .launch(("Paragraphs".to_string(), 1, 50, settings.paragraphs))
-                .forward(sender.input_sender(), |output| match output {
-                    CounterOutput::ValueChanged(value) => Messages::UpdateParagraphs(value),
-                }),
         };
 
         let widgets = view_output!();

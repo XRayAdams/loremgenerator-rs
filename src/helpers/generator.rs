@@ -1,3 +1,5 @@
+// Copyright (c) 2025, 2026 Konstantin Adamov. Licensed under MIT.
+
 use rand::Rng;
 pub fn generate(start_with_lorem: bool, paragraphs : usize, max_sentences: usize, max_words: usize) -> String {
         use super::static_data::StaticData;

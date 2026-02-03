@@ -1,3 +1,5 @@
+// Copyright (c) 2025, 2026 Konstantin Adamov. Licensed under MIT.
+
 use libadwaita as adw;
 use libadwaita::prelude::AdwDialogExt;
 use relm4::actions::{RelmAction};

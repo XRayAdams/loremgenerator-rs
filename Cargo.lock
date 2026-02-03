@@ -640,7 +640,7 @@ dependencies = [
 
 [[package]]
 name = "loremgenerator"
-version = "2.2.6+32"
+version = "2.2.7+35"
 dependencies = [
  "clap",
  "gtk4",

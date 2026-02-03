@@ -1,3 +1,5 @@
+// Copyright (c) 2025, 2026 Konstantin Adamov. Licensed under MIT.
+
 use clap::Parser;
 
 /// Lorem Ipsum Generator - Generate placeholder text
