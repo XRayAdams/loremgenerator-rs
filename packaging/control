@@ -1,5 +1,5 @@
 Package: loremgenerator
-Version: 2.3.8+40
+Version: 2.3.8+41
 Section: utils
 Architecture: amd64
 Priority: optional
