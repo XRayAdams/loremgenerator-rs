@@ -92,7 +92,7 @@ impl ObjectImpl for NumberEditorPriv {
         obj.set_orientation(gtk4::Orientation::Vertical);
         obj.set_spacing(5);
 
-        self.label.set_halign(Align::Start);
+        self.label.set_halign(Align::Center);
         obj.append(&self.label);
 
         self.spin_button.set_halign(Align::Center);

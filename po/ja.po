@@ -1,0 +1,45 @@
+# Japanese translation for loremgenerator.
+# Copyright (C) 2026 Konstantin Adamov
+# This file is distributed under the same license as the loremgenerator package.
+# Konstantin Adamov, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: loremgenerator 2.3.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-05 12:00+0000\n"
+"PO-Revision-Date: 2026-02-05 19:00+0000\n"
+"Last-Translator: Konstantin Adamov\n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "_About"
+msgstr "このアプリケーションについて(_A)"
+
+msgid "Max Words"
+msgstr "最大単語数"
+
+msgid "Max Sentences"
+msgstr "最大文数"
+
+msgid "Paragraphs"
+msgstr "段落"
+
+msgid "Start with 'Lorem ipsum'"
+msgstr "'Lorem ipsum'で始める"
+
+msgid "_Generate"
+msgstr "生成(_G)"
+
+msgid "_Copy to Clipboard"
+msgstr "クリップボードにコピー(_C)"
+
+msgid "Copied to clipboard"
+msgstr "クリップボードにコピーしました"
+
+msgid "Lorem Ipsum Generator"
+msgstr "Lorem Ipsum ジェネレーター"

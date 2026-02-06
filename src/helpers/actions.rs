@@ -3,7 +3,8 @@
 use libadwaita as adw;
 use libadwaita::prelude::AdwDialogExt;
 use relm4::actions::{RelmAction};
-use super::static_data::{APP_ID, APP_NAME};
+use super::static_data::APP_ID;
+use gettextrs::gettext;
 
 relm4::new_action_group!(pub WindowActionGroup, "win");
 
@@ -18,9 +19,9 @@ pub fn create_about_action(parent: adw::ApplicationWindow, app_version: &str) ->
             .license_type(gtk4::License::MitX11)
             .website("https://github.com/XRayAdams/loremgenerator-rs")
             .issue_url("https://github.com/XRayAdams/loremgenerator-rs/issues")
-            .application_name(APP_NAME)
+            .application_name(&gettext("Lorem Ipsum Generator"))
             .version(&app_version)
-            .copyright("© 2025 Konstantin Adamov")
+            .copyright("© 2025,26 Konstantin Adamov")
             .developers(vec!["Konstantin Adamov"])
             .can_close(true)
             .build();

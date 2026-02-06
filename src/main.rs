@@ -13,6 +13,7 @@ use clap::Parser;
 
 mod cli;
 mod helpers;
+mod i18n;
 
 use cli::CliArgs;
 use helpers::actions::{AboutAction, WindowActionGroup, create_about_action};
@@ -107,7 +108,7 @@ impl SimpleComponent for App {
     menu! {
         main_menu: {
             section! {
-                "_About" => AboutAction,
+                &tr!("_About") => AboutAction,
             }
         }
     }
@@ -141,7 +142,7 @@ impl SimpleComponent for App {
                         set_margin_top: SPACING_MEDIUM,
 
                         NumberEditor {
-                            set_label: "Max Words",
+                            set_label: &tr!("Max Words"),
                             set_min: 6.0,
                             set_max: 100.0,
                             set_value: model.max_words as f64,
@@ -151,7 +152,7 @@ impl SimpleComponent for App {
                         },
 
                         NumberEditor {
-                            set_label: "Max Sentences",
+                            set_label: &tr!("Max Sentences"),
                             set_min: 1.0,
                             set_max: 20.0,
                             set_value: model.max_sentences as f64,
@@ -161,7 +162,7 @@ impl SimpleComponent for App {
                         },
 
                         NumberEditor {
-                            set_label: "Paragraphs",
+                            set_label: &tr!("Paragraphs"),
                             set_min: 1.0,
                             set_max: 50.0,
                             set_value: model.paragraphs as f64,
@@ -175,7 +176,7 @@ impl SimpleComponent for App {
                             set_spacing: 5,
                             set_halign: Align::Center,
                             gtk::Label{
-                                set_label: "Start with 'Lorem ipsum'",
+                                set_label: &tr!("Start with 'Lorem ipsum'"),
                             },
                             gtk::Switch{
                                 set_active: model.start_with_lorem,
@@ -223,13 +224,13 @@ impl SimpleComponent for App {
                         set_spacing: SPACING_LARGE,
                         set_margin_horizontal: SPACING_MEDIUM,
                         set_margin_vertical: SPACING_MEDIUM,
-                        gtk::Button::with_mnemonic("_Generate") {
+                        gtk::Button::with_mnemonic(&tr!("_Generate")) {
                             set_halign: Align::Start,
                             connect_clicked[sender] => move |_| {
                                 sender.input(Messages::Generate);
                             },
                         },
-                        gtk::Button::with_mnemonic("_Copy to Clipboard") {
+                        gtk::Button::with_mnemonic(&tr!("_Copy to Clipboard")) {
                             #[watch]
                             set_sensitive: !model.result_text.is_empty(),
                             set_halign: Align::Start,
@@ -317,7 +318,7 @@ impl SimpleComponent for App {
                 self.toast_overlay
                     .clone()
                     .unwrap()
-                    .add_toast(adw::Toast::new("Copied to clipboard"));
+                    .add_toast(adw::Toast::new(&tr!("Copied to clipboard")));
             }
         }
     }
@@ -344,6 +345,8 @@ fn main() {
         println!("{}", result);
     } else {
         // GUI mode - launch the application
+        i18n::init_i18n();
+        
         adw::init().expect("Failed to initialize Libadwaita");
 
         gtk4::init().expect("Failed to initialize GTK");
