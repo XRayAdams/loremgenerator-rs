@@ -40,6 +40,26 @@ parts:
       - libgtk-4-dev
       - libadwaita-1-dev
       - gettext
+  
+  translations:
+    plugin: nil
+    source: po
+    build-packages:
+      - gettext
+    after: [loremgenerator]
     override-build: |
-      craftctl default
-      cp -r ${CRAFT_PART_SRC}/target/release/assets ${CRAFT_PART_INSTALL}/
+      for po_file in *.po; do
+        if [ -f "$po_file" ]; then
+          lang=$(basename "$po_file" .po)
+          locale_dir="$CRAFT_PART_INSTALL/assets/locale/$lang/LC_MESSAGES"
+          mkdir -p "$locale_dir"
+          msgfmt -o "$locale_dir/loremgenerator.mo" "$po_file"
+          echo "Compiled translation for $lang"
+        fi
+      done
+  
+  static-assets:
+    plugin: dump
+    source: assets
+    organize:
+      '*': assets/
