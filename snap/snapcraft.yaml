@@ -1,7 +1,5 @@
-title: Lorem Ipsum Generator
 name: loremgenerator
-version: 2.3.8+40
-summary: Lorem Ipsum Generator
+version: 2.3.8+41
 description: Lorem Ipsum Generator
 contact: xrayadamo@gmail.com
 icon: snap/gui/loremgenerator.png
@@ -9,7 +7,8 @@ confinement: strict
 base: core24
 grade: stable
 license: MIT
-source-code: https://github.com/rayadams/loremgenerator-rs
+source-code: https://github.com/XRayAdams/loremgenerator-rs
+issues: https://github.com/XRayAdams/loremgenerator-rs/issues
 website: https://www.rayadams.app
 
 platforms:
@@ -28,12 +27,19 @@ apps:
       - wayland
       - x11
 
+adopt-info: loremgenerator
+
 parts:
   loremgenerator:
     plugin: rust
     source: .
     rust-channel: stable
+    parse-info: [snap/app.rayadams.loremgenerator.metainfo.xml]
     build-packages:
       - pkg-config
       - libgtk-4-dev
       - libadwaita-1-dev
+      - gettext
+    override-build: |
+      craftctl default
+      cp -r ${CRAFT_PART_SRC}/target/release/assets ${CRAFT_PART_INSTALL}/

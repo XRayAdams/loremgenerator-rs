@@ -710,7 +710,7 @@ dependencies = [
 
 [[package]]
 name = "loremgenerator"
-version = "2.3.8+40"
+version = "2.3.8+41"
 dependencies = [
  "clap",
  "gettext-rs",
