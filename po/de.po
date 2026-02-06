@@ -1,0 +1,45 @@
+# German translation for loremgenerator.
+# Copyright (C) 2026 Konstantin Adamov
+# This file is distributed under the same license as the loremgenerator package.
+# Konstantin Adamov, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: loremgenerator 2.3.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-05 12:00+0000\n"
+"PO-Revision-Date: 2026-02-05 19:00+0000\n"
+"Last-Translator: Konstantin Adamov\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "_About"
+msgstr "Ü_ber"
+
+msgid "Max Words"
+msgstr "Maximale Wörter"
+
+msgid "Max Sentences"
+msgstr "Maximale Sätze"
+
+msgid "Paragraphs"
+msgstr "Absätze"
+
+msgid "Start with 'Lorem ipsum'"
+msgstr "Mit 'Lorem ipsum' beginnen"
+
+msgid "_Generate"
+msgstr "_Generieren"
+
+msgid "_Copy to Clipboard"
+msgstr "In _Zwischenablage kopieren"
+
+msgid "Copied to clipboard"
+msgstr "In Zwischenablage kopiert"
+
+msgid "Lorem Ipsum Generator"
+msgstr "Lorem Ipsum Generator"
