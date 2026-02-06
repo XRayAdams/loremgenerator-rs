@@ -18,6 +18,94 @@
   <summary xml:lang="it">Un'utilità semplice e gratuita per generare testo Lorem Ipsum standard</summary>
   <summary xml:lang="ru">Простая и бесплатная утилита для генерации стандартного текста Lorem Ipsum</summary>
   <summary xml:lang="ja">標準的なLorem Ipsumテキストを生成するシンプルで無料なユーティリティ</summary>
+  <description>
+    <p>A simple and configurable Lorem Ipsum generator built with Rust, GTK4 and Relm4.</p>
+    <p>Features:</p>
+    <ul>
+      <li>Generate Lorem Ipsum placeholder text for your designs and mockups</li>
+      <li>Configurable output: set maximum words, sentences, and number of paragraphs</li>
+      <li>Option to start with the classic "Lorem ipsum" prefix</li>
+      <li>Available in GUI and CLI modes</li>
+      <li>Multilingual interface supporting 8 languages</li>
+    </ul>
+  </description>
+  <description xml:lang="es">
+    <p>Un generador de Lorem Ipsum simple y configurable construido con Rust, GTK4 y Relm4.</p>
+    <p>Características:</p>
+    <ul>
+      <li>Genera texto de marcador Lorem Ipsum para tus diseños y maquetas</li>
+      <li>Salida configurable: establece palabras máximas, oraciones y número de párrafos</li>
+      <li>Opción para comenzar con el prefijo clásico "Lorem ipsum"</li>
+      <li>Disponible en modos GUI y CLI</li>
+      <li>Interfaz multilingüe compatible con 8 idiomas</li>
+    </ul>
+  </description>
+  <description xml:lang="de">
+    <p>Ein einfacher und konfigurierbarer Lorem Ipsum Generator, erstellt mit Rust, GTK4 und Relm4.</p>
+    <p>Funktionen:</p>
+    <ul>
+      <li>Generiere Lorem Ipsum Platzhaltertext für deine Designs und Mockups</li>
+      <li>Konfigurierbare Ausgabe: stelle maximale Wörter, Sätze und Anzahl der Absätze ein</li>
+      <li>Option zum Start mit dem klassischen "Lorem ipsum" Präfix</li>
+      <li>Verfügbar in GUI- und CLI-Modi</li>
+      <li>Mehrsprachige Oberfläche mit Unterstützung für 8 Sprachen</li>
+    </ul>
+  </description>
+  <description xml:lang="fr">
+    <p>Un générateur Lorem Ipsum simple et configurable construit avec Rust, GTK4 et Relm4.</p>
+    <p>Fonctionnalités:</p>
+    <ul>
+      <li>Génère du texte de remplissage Lorem Ipsum pour vos designs et maquettes</li>
+      <li>Sortie configurable: définissez les mots maximums, les phrases et le nombre de paragraphes</li>
+      <li>Option pour commencer avec le préfixe classique "Lorem ipsum"</li>
+      <li>Disponible en modes GUI et CLI</li>
+      <li>Interface multilingue supportant 8 langues</li>
+    </ul>
+  </description>
+  <description xml:lang="pt_BR">
+    <p>Um gerador de Lorem Ipsum simples e configurável construído com Rust, GTK4 e Relm4.</p>
+    <p>Recursos:</p>
+    <ul>
+      <li>Gera texto de espaço reservado Lorem Ipsum para seus designs e mockups</li>
+      <li>Saída configurável: defina palavras máximas, frases e número de parágrafos</li>
+      <li>Opção para começar com o prefixo clássico "Lorem ipsum"</li>
+      <li>Disponível nos modos GUI e CLI</li>
+      <li>Interface multilíngue com suporte para 8 idiomas</li>
+    </ul>
+  </description>
+  <description xml:lang="it">
+    <p>Un generatore di Lorem Ipsum semplice e configurabile costruito con Rust, GTK4 e Relm4.</p>
+    <p>Caratteristiche:</p>
+    <ul>
+      <li>Genera testo segnaposto Lorem Ipsum per i tuoi design e mockup</li>
+      <li>Output configurabile: imposta parole massime, frasi e numero di paragrafi</li>
+      <li>Opzione per iniziare con il prefisso classico "Lorem ipsum"</li>
+      <li>Disponibile in modalità GUI e CLI</li>
+      <li>Interfaccia multilingue che supporta 8 lingue</li>
+    </ul>
+  </description>
+  <description xml:lang="ru">
+    <p>Простой и настраиваемый генератор Lorem Ipsum, созданный с использованием Rust, GTK4 и Relm4.</p>
+    <p>Возможности:</p>
+    <ul>
+      <li>Генерация текста-заполнителя Lorem Ipsum для ваших дизайнов и макетов</li>
+      <li>Настраиваемый вывод: установите максимум слов, предложений и количество абзацев</li>
+      <li>Опция начала с классического префикса "Lorem ipsum"</li>
+      <li>Доступен в режимах GUI и CLI</li>
+      <li>Многоязычный интерфейс с поддержкой 8 языков</li>
+    </ul>
+  </description>
+  <description xml:lang="ja">
+    <p>Rust、GTK4、Relm4で構築されたシンプルで設定可能なLorem Ipsumジェネレーター。</p>
+    <p>機能:</p>
+    <ul>
+      <li>デザインやモックアップ用のLorem Ipsumプレースホルダーテキストを生成</li>
+      <li>設定可能な出力: 最大単語数、文数、段落数を設定</li>
+      <li>古典的な「Lorem ipsum」プレフィックスで開始するオプション</li>
+      <li>GUIおよびCLIモードで利用可能</li>
+      <li>8言語をサポートする多言語インターフェース</li>
+    </ul>
+  </description>
   <url type="homepage">https://github.com/XRayAdams/loremgenerator-rs</url>
   <content_rating type="oars-1.1"><category>Age 3+</category></content_rating>
   <screenshots>
