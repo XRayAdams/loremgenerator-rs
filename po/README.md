@@ -15,8 +15,8 @@ This directory contains translation files for the Lorem Ipsum Generator applicat
 
 Compiled translations (.mo files) are generated during build and placed in:
 ```
-target/debug/assets/locale/<lang>/LC_MESSAGES/loremgenerator.mo
-target/release/assets/locale/<lang>/LC_MESSAGES/loremgenerator.mo
+target/debug/locale/<lang>/LC_MESSAGES/loremgenerator.mo
+target/release/locale/<lang>/LC_MESSAGES/loremgenerator.mo
 ```
 
 ## Adding a New Translation

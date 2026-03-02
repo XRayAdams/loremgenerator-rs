@@ -1,6 +1,10 @@
 #!/bin/bash
 # Script to run Lorem Ipsum Generator with language selection
 
+# Point gettext at the development-compiled locale files
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+export TEXTDOMAINDIR="$SCRIPT_DIR/target/debug/locale"
+
 echo "Lorem Ipsum Generator - Language Selection"
 echo "=========================================="
 echo "Available languages:"

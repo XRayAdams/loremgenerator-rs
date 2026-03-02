@@ -89,8 +89,8 @@ po/
 
 After building, compiled translations are placed in:
 ```
-target/debug/assets/locale/<lang>/LC_MESSAGES/loremgenerator.mo
-target/release/assets/locale/<lang>/LC_MESSAGES/loremgenerator.mo
+target/debug/locale/<lang>/LC_MESSAGES/loremgenerator.mo
+target/release/locale/<lang>/LC_MESSAGES/loremgenerator.mo
 ```
 
 ## Requirements
@@ -141,7 +141,7 @@ The `update_translations.sh` script uses `xgettext` to extract strings marked wi
 To verify translations are working:
 
 1. Build the project: `cargo build`
-2. Check compiled translations: `ls target/debug/assets/locale/*/LC_MESSAGES/`
+2. Check compiled translations: `ls target/debug/locale/*/LC_MESSAGES/`
 3. Run with specific language: `LANGUAGE=es ./target/debug/loremgenerator`
 
 ## Translation Details
@@ -270,7 +270,7 @@ All user-facing strings have been translated to Japanese:
 
 2. **Verify .mo file exists:**
    ```bash
-   ls target/debug/assets/locale/es/LC_MESSAGES/loremgenerator.mo
+   ls target/debug/locale/es/LC_MESSAGES/loremgenerator.mo
    ```
 
 3. **Check environment variables:**

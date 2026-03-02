@@ -1,5 +1,5 @@
 [Desktop Entry]
-Version=2.3.8+41
+Version=2.4.9+45
 Name=Lorem Ipsum Generator
 Name[es]=Generador de Lorem Ipsum
 Name[de]=Lorem Ipsum Generator
@@ -29,6 +29,6 @@ Type=Application
 Categories=Utility;
 Keywords=Lorem, Ipsum, Lorem Ipsum, Generator;
 StartupWMClass=loremgenerator
-Exec=/usr/local/lib/loremgenerator/loremgenerator
-TryExec=/usr/local/lib/loremgenerator/loremgenerator
+Exec=/usr/bin/loremgenerator
+TryExec=/usr/bin/loremgenerator
 Icon=app.rayadams.loremgenerator

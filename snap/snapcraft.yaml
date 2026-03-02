@@ -1,5 +1,5 @@
 name: loremgenerator
-version: 2.3.8+41
+version: 2.4.9+45
 description: Lorem Ipsum Generator
 contact: xrayadamo@gmail.com
 icon: snap/gui/loremgenerator.png
@@ -51,7 +51,7 @@ parts:
       for po_file in *.po; do
         if [ -f "$po_file" ]; then
           lang=$(basename "$po_file" .po)
-          locale_dir="$CRAFT_PART_INSTALL/assets/locale/$lang/LC_MESSAGES"
+          locale_dir="$CRAFT_PART_INSTALL/usr/share/locale/$lang/LC_MESSAGES"
           mkdir -p "$locale_dir"
           msgfmt -o "$locale_dir/loremgenerator.mo" "$po_file"
           echo "Compiled translation for $lang"
