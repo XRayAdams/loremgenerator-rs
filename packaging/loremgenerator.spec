@@ -1,6 +1,6 @@
 %define _name loremgenerator
-%define _version 2.3.8
-%define _release 41
+%define _version 2.4.9
+%define _release 45
 %define debug_package %{nil}
 
 Name: %{_name}
@@ -31,29 +31,26 @@ A simple and free utility to generate standard Lorem Ipsum text
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/bin
-mkdir -p %{buildroot}/usr/share/applications
-mkdir -p %{buildroot}/usr/share/icons/hicolor/256x256/apps
-mkdir -p %{buildroot}/opt/%{_name}
-mkdir -p %{buildroot}%{_datadir}/metainfo
 
-# Copy the application files
-cp -r ./* %{buildroot}/opt/%{_name}/
+# Install binary
+install -D -m 755 %{_name} %{buildroot}%{_bindir}/%{_name}
 
-# Create a symlink in /usr/bin
-ln -s /opt/%{_name}/%{_name} %{buildroot}/usr/bin/%{_name}
+# Install locale files
+find locale -name "*.mo" | while read mo; do \
+    install -D -m 644 "$mo" %{buildroot}/usr/share/${mo}; \
+done
 
 # Copy the desktop file
-install -m 644 %{SOURCE1} %{buildroot}/usr/share/applications/%{_name}.desktop
+install -D -m 644 %{SOURCE1} %{buildroot}/usr/share/applications/%{_name}.desktop
 
 # Copy the application icon
-install -m 644 %{SOURCE2} %{buildroot}/usr/share/icons/hicolor/256x256/apps/%{_name}.png
+install -D -m 644 %{SOURCE2} %{buildroot}/usr/share/icons/hicolor/256x256/apps/%{_name}.png
 
 # Copy meta info
-install -m 644 %{SOURCE3} %{buildroot}%{_datadir}/metainfo/%{name}.metainfo.xml
+install -D -m 644 %{SOURCE3} %{buildroot}%{_datadir}/metainfo/%{name}.metainfo.xml
 %files
-/usr/bin/%{_name}
-/opt/%{_name}
+%{_bindir}/%{_name}
+/usr/share/locale/*/LC_MESSAGES/loremgenerator.mo
 /usr/share/applications/%{_name}.desktop
 /usr/share/icons/hicolor/256x256/apps/%{_name}.png
 %{_datadir}/metainfo/%{name}.metainfo.xml

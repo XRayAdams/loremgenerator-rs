@@ -2,7 +2,7 @@
 
 use adw::ToastOverlay;
 use gtk4::prelude::*;
-use gtk4::{Align, IconTheme, PolicyType, TextBuffer, TextView, glib};
+use gtk4::{Align, IconTheme, PolicyType, TextBuffer, TextView, glib, gio};
 use libadwaita as adw;
 use relm4::actions::RelmActionGroup;
 use relm4::prelude::*;
@@ -357,36 +357,16 @@ fn main() {
             .build();
 
         gtk_app.connect_activate(|_| {
-        let display = gtk4::gdk::Display::default().expect("Could not get default display.");
-        let icon_theme = IconTheme::for_display(&display);
-        if let Ok(snap_path) = std::env::var("SNAP") {
-            let assets_path = std::path::Path::new(&snap_path).join("assets");
-            icon_theme.add_search_path(assets_path);
-        } else {
-            // Fallback for local development
-            icon_theme.add_search_path("assets");
-
-            // Check paths relative to the executable
-            if let Ok(exe_path) = std::env::current_exe() {
-                if let Some(exe_dir) = exe_path.parent() {
-                    // 1. Assets next to executable (e.g. portable tarball)
-                    let local_assets = exe_dir.join("assets");
-                    if local_assets.exists() {
-                        icon_theme.add_search_path(local_assets);
-                    }
-
-                    // 2. Standard Linux install: ../share/loremgenerator/assets
-                    // (assuming binary is in /usr/bin or /usr/local/bin)
-                    if let Some(prefix) = exe_dir.parent() {
-                        let system_assets =
-                            prefix.join("share").join("loremgenerator").join("assets");
-                        if system_assets.exists() {
-                            icon_theme.add_search_path(system_assets);
-                        }
-                    }
-                }
-            }
-        }
+            // Load and register the GResource
+            let resources_bytes = include_bytes!(concat!(env!("OUT_DIR"), "/resources.gresource"));
+            let resource_data = gtk4::glib::Bytes::from_static(resources_bytes);
+            let resource = gio::Resource::from_data(&resource_data).expect("Failed to load GResource");
+            gio::resources_register(&resource);
+            
+            // Add the GResource path to icon theme so AboutDialog can find the icon
+            let display = gtk4::gdk::Display::default().expect("Could not get default display.");
+            let icon_theme = IconTheme::for_display(&display);
+            icon_theme.add_resource_path("/app/rayadams/loremgenerator/assets");
     });
 
         let app = RelmApp::from_app(gtk_app);

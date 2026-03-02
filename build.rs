@@ -9,8 +9,25 @@ fn main() {
     // Rerun this script if assets change
     println!("cargo:rerun-if-changed=assets");
     println!("cargo:rerun-if-changed=po");
+    println!("cargo:rerun-if-changed=resources.gresource.xml");
 
     let out_dir = env::var("OUT_DIR").unwrap();
+    
+    
+    // Compile the GResource file
+    let status = Command::new("glib-compile-resources")
+        .arg("resources.gresource.xml")
+        .arg("--target")
+        .arg(format!("{}/resources.gresource", out_dir))
+        .arg("--sourcedir")
+        .arg(".")
+        .status()
+        .expect("Failed to execute glib-compile-resources. Make sure it is installed.");
+
+    if !status.success() {
+        panic!("glib-compile-resources failed");
+    }
+    
     // Navigate up to the target directory (target/debug or target/release)
     // Structure is usually: target/<profile>/build/<package>-<hash>/out
     // So we go up 3 levels to get to target/<profile>
@@ -18,14 +35,7 @@ fn main() {
         .parent().unwrap()
         .parent().unwrap()
         .parent().unwrap();
-        
-    let src = Path::new("assets");
-    let dest = dest_path.join("assets");
 
-    if src.exists() {
-        copy_dir_all(src, &dest).expect("Failed to copy assets");
-    }
-    
     // Compile translations
     compile_translations(dest_path);
 }
@@ -57,7 +67,7 @@ fn compile_translations(dest_path: &Path) {
 }
 
 fn compile_po_file(po_file: &Path, lang: &str, dest_path: &Path) {
-    let locale_dir = dest_path.join("assets/locale").join(lang).join("LC_MESSAGES");
+    let locale_dir = dest_path.join("locale").join(lang).join("LC_MESSAGES");
     fs::create_dir_all(&locale_dir).expect("Failed to create locale directory");
     
     let mo_file = locale_dir.join("loremgenerator.mo");
@@ -86,18 +96,4 @@ fn compile_po_file(po_file: &Path, lang: &str, dest_path: &Path) {
             eprintln!("On Fedora: sudo dnf install gettext");
         }
     }
-}
-
-fn copy_dir_all(src: &Path, dst: &Path) -> std::io::Result<()> {
-    fs::create_dir_all(dst)?;
-    for entry in fs::read_dir(src)? {
-        let entry = entry?;
-        let ty = entry.file_type()?;
-        if ty.is_dir() {
-            copy_dir_all(&entry.path(), &dst.join(entry.file_name()))?;
-        } else {
-            fs::copy(entry.path(), dst.join(entry.file_name()))?;
-        }
-    }
-    Ok(())
 }
