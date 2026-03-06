@@ -13,6 +13,7 @@ SNAP_DESKTOP_FILE="snap/gui/loremgenerator.desktop"
 RPM_FILE="packaging/loremgenerator.spec"
 MACHINE_ARCH=$(uname -m)
 DEBIAN_CONTROL_FILE_ARCH="amd64"
+AUR_CONTROL_FILE="packaging/PKGBUILD"
 
 if [ "$MACHINE_ARCH" == "aarch64" ]; then
     MACHINE_ARCH="arm64"
@@ -50,6 +51,10 @@ if [ ! -f "$RPM_FILE" ]; then
     echo "Error: File not found: $RPM_FILE"
     exit 1
 fi
+if [ ! -f "$AUR_CONTROL_FILE" ]; then
+    echo "Error: File not found: $AUR_CONTROL_FILE"
+    exit 1
+fi
 
 # Read version from Cargo.toml (extracts the line with 'version =' and gets the value after the space)
 APP_VERSION=$(grep -E '^\s*version = ' "$CARGO_FILE" | head -n1 | cut -d ' ' -f 3 | tr -d '"')
@@ -79,4 +84,9 @@ sed -i "s/^\(\s*Version=\s*\).*\$/\1$APP_VERSION/" "$SNAP_DESKTOP_FILE"
 sed -i "s/^\(\s*%define _version \s*\).*\$/\1$APP_VERSION_SHORT/" "$RPM_FILE"
 sed -i "s/^\(\s*%define _release \s*\).*\$/\1$APP_BUILD/" "$RPM_FILE"
 
+# Update version in AUR PKGBUILD
+sed -i "s/^\(\s*pkgver=\).*\$/\1$APP_VERSION_SHORT/" "$AUR_CONTROL_FILE"
+sed -i "s/^\(\s*pkgrel=\).*\$/\1$APP_BUILD/" "$AUR_CONTROL_FILE"
+
 echo "Successfully updated version to $APP_VERSION in all relevant files."
+

@@ -1,0 +1,43 @@
+# Maintainer: Konstantin Adamov <xrayadamo@gmail.com>
+pkgname=loremgenerator
+pkgver=2.4.9
+pkgrel=45
+pkgdesc="A simple and configurable Lorem Ipsum generator built with Rust, GTK4 and Relm4"
+arch=('x86_64' 'aarch64')
+url="https://github.com/XRayAdams/loremgenerator-rs"
+license=('MIT')
+depends=('gtk4' 'libadwaita' 'glibc' 'gcc-libs')
+makedepends=('cargo' 'gettext' 'glib2')
+
+build() {
+  cd "$startdir"
+  cargo build --release --locked --target-dir=target
+}
+
+package() {
+  cd "$startdir"
+  
+  # Main executable
+  install -Dm755 "target/release/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+
+  # Locales
+  if [ -d "target/release/locale" ]; then
+    mkdir -p "${pkgdir}/usr/share/locale"
+    cp -a target/release/locale/* "${pkgdir}/usr/share/locale/"
+    # Fix permissions
+    find "${pkgdir}/usr/share/locale" -type d -exec chmod 755 {} +
+    find "${pkgdir}/usr/share/locale" -type f -exec chmod 644 {} +
+  fi
+
+  # Desktop file
+  install -Dm644 "packaging/gui/app.rayadams.loremgenerator.desktop" -t "${pkgdir}/usr/share/applications/"
+  
+  # Icon
+  install -Dm644 "packaging/gui/app.rayadams.loremgenerator.png" "${pkgdir}/usr/share/icons/hicolor/512x512/apps/app.rayadams.loremgenerator.png"
+  
+  # Metainfo
+  install -Dm644 "packaging/app.rayadams.loremgenerator.metainfo.xml" -t "${pkgdir}/usr/share/metainfo/"
+  
+  # License
+  install -Dm644 "LICENSE" -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}

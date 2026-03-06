@@ -108,6 +108,16 @@ echo "RPM package created in dist/"
 
 echo "___________________________________________________________"
 
+#Packaging AUR
+cp packaging/PKGBUILD .
+PKGEXT='.pkg.tar.zst' COMPRESSZST=(zstd -c -T0 --auto-threads=logical -) env makepkg --nodeps -f
+mv *.pkg.tar.zst dist/
+rm -rf pkg/
+rm PKGBUILD
+
+echo "AUR package created in dist/"
+echo "___________________________________________________________"
+
 # Package TAR
 echo "Preparing TAR archive"
 
