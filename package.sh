@@ -26,6 +26,7 @@ APP_VERSION_LONG=$(grep -E '^\s*version = ' "$CARGO_FILE" | head -n1 | cut -d ' 
 APP_VERSION=$(echo "$APP_VERSION_LONG" | cut -d'+' -f1)
 APP_BUILD=$(echo "$APP_VERSION_LONG" | cut -d'+' -f2)
 
+strip target/release/"$APP_NAME"
 
 # Set app versions to all files for packaging
 packaging/set_app_versions.sh

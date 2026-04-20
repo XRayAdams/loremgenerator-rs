@@ -1,15 +1,15 @@
 // Copyright (c) 2025, 2026 Konstantin Adamov. Licensed under MIT.
 
 use adw::ToastOverlay;
+use clap::Parser;
 use gtk4::prelude::*;
-use gtk4::{Align, IconTheme, PolicyType, TextBuffer, TextView, glib, gio};
+use gtk4::{Align, IconTheme, PolicyType, TextBuffer, TextView, gio, glib};
 use libadwaita as adw;
 use relm4::actions::RelmActionGroup;
 use relm4::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;
-use clap::Parser;
 
 mod cli;
 mod helpers;
@@ -48,6 +48,10 @@ struct App {
     paragraphs: usize,
     start_with_lorem: bool,
     result_text: String,
+    word_count: usize,
+    char_count_with_spaces: usize,
+    char_count_no_spaces: usize,
+    sentence_count: usize,
     toast_overlay: Option<ToastOverlay>,
     text_view: Option<TextView>,
 }
@@ -218,7 +222,20 @@ impl SimpleComponent for App {
                             },
                         },
                     },
-
+                    gtk::Box{
+                        set_orientation: gtk::Orientation::Horizontal,
+                        set_spacing: SPACING_MEDIUM,
+                        set_margin_horizontal: SPACING_MEDIUM,
+                        set_margin_top: SPACING_MEDIUM,
+                        gtk::Label{
+                            #[watch]
+                            set_label: &format!("{}: {}   {}: {}   {}: {}   {}: {}",
+                            tr!("Words"), model.word_count, 
+                            tr!("Sentences"), model.sentence_count, 
+                            tr!("Characters (with spaces)"), model.char_count_with_spaces, 
+                            tr!("Characters (no spaces)"), model.char_count_no_spaces),
+                        },
+                    },
                     gtk::Box{
                         set_halign: Align::Start,
                         set_spacing: SPACING_LARGE,
@@ -256,6 +273,10 @@ impl SimpleComponent for App {
             max_sentences: settings.max_sentences,
             paragraphs: settings.paragraphs,
             result_text: String::new(),
+            word_count: 0,
+            char_count_with_spaces: 0,
+            char_count_no_spaces: 0,
+            sentence_count: 0,
             start_with_lorem: settings.start_with_lorem,
             toast_overlay: None,
             text_view: None,
@@ -301,6 +322,18 @@ impl SimpleComponent for App {
                     self.max_sentences,
                     self.max_words,
                 );
+                self.word_count = self.result_text.split_whitespace().count();
+                self.char_count_with_spaces = self.result_text.chars().count();
+                self.char_count_no_spaces = self
+                    .result_text
+                    .chars()
+                    .filter(|c| !c.is_whitespace())
+                    .count();
+                self.sentence_count = self
+                    .result_text
+                    .chars()
+                    .filter(|c| matches!(c, '.' | '!' | '?'))
+                    .count();
 
                 self.text_view
                     .clone()
@@ -328,14 +361,13 @@ fn main() {
     let args = CliArgs::parse();
 
     // Check if any CLI arguments were provided
-    let is_cli_mode = args.paragraphs.is_some()
-        || args.max_sentences.is_some()
-        || args.max_words.is_some();
+    let is_cli_mode =
+        args.paragraphs.is_some() || args.max_sentences.is_some() || args.max_words.is_some();
 
     if is_cli_mode {
         // CLI mode - generate and print to stdout
         let defaults = AppSettings::default();
-        
+
         let start_with_lorem = args.start_with_lorem == 1;
         let paragraphs = args.paragraphs.unwrap_or(defaults.paragraphs);
         let max_sentences = args.max_sentences.unwrap_or(defaults.max_sentences);
@@ -346,7 +378,7 @@ fn main() {
     } else {
         // GUI mode - launch the application
         i18n::init_i18n();
-        
+
         adw::init().expect("Failed to initialize Libadwaita");
 
         gtk4::init().expect("Failed to initialize GTK");
@@ -360,14 +392,15 @@ fn main() {
             // Load and register the GResource
             let resources_bytes = include_bytes!(concat!(env!("OUT_DIR"), "/resources.gresource"));
             let resource_data = gtk4::glib::Bytes::from_static(resources_bytes);
-            let resource = gio::Resource::from_data(&resource_data).expect("Failed to load GResource");
+            let resource =
+                gio::Resource::from_data(&resource_data).expect("Failed to load GResource");
             gio::resources_register(&resource);
-            
+
             // Add the GResource path to icon theme so AboutDialog can find the icon
             let display = gtk4::gdk::Display::default().expect("Could not get default display.");
             let icon_theme = IconTheme::for_display(&display);
             icon_theme.add_resource_path("/app/rayadams/loremgenerator/assets");
-    });
+        });
 
         let app = RelmApp::from_app(gtk_app);
         app.run::<App>(());

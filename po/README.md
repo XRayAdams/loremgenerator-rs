@@ -12,6 +12,7 @@ This directory contains translation files for the Lorem Ipsum Generator applicat
 - `it.po` - Italian translation
 - `ru.po` - Russian translation
 - `ja.po` - Japanese translation
+- `uk.po` - Ukrainian translation
 
 Compiled translations (.mo files) are generated during build and placed in:
 ```
@@ -65,6 +66,7 @@ LANGUAGE=pt_BR ./target/debug/loremgenerator  # Portuguese (Brazilian)
 LANGUAGE=it ./target/debug/loremgenerator     # Italian
 LANGUAGE=ru ./target/debug/loremgenerator     # Russian
 LANGUAGE=ja ./target/debug/loremgenerator     # Japanese
+LANGUAGE=uk ./target/debug/loremgenerator     # Ukrainian
 ```
 
 Or use the interactive convenience script:

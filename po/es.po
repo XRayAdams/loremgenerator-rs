@@ -41,5 +41,17 @@ msgstr "_Copiar al Portapapeles"
 msgid "Copied to clipboard"
 msgstr "Copiado al portapapeles"
 
+msgid "Words"
+msgstr "Palabras"
+
+msgid "Sentences"
+msgstr "Oraciones"
+
+msgid "Characters (with spaces)"
+msgstr "Caracteres (con espacios)"
+
+msgid "Characters (no spaces)"
+msgstr "Caracteres (sin espacios)"
+
 msgid "Lorem Ipsum Generator"
 msgstr "Generador de Lorem Ipsum"

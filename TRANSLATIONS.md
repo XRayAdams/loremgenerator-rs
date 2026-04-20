@@ -12,6 +12,7 @@ Lorem Ipsum Generator now supports multiple languages through gettext-based inte
 - **Italian** (it)
 - **Russian** (ru)
 - **Japanese** (ja)
+- **Ukrainian** (uk)
 
 ## Running with a Specific Language
 
