@@ -9,6 +9,7 @@
   <name xml:lang="pt_BR">Gerador de Lorem Ipsum</name>
   <name xml:lang="it">Generatore di Lorem Ipsum</name>
   <name xml:lang="ru">Генератор Lorem Ipsum</name>
+  <name xml:lang="uk">Генератор Lorem Ipsum</name>
   <name xml:lang="ja">Lorem Ipsum ジェネレーター</name>
   <summary>A simple and free utility to generate standard Lorem Ipsum text</summary>
   <summary xml:lang="es">Una utilidad simple y gratuita para generar texto estándar Lorem Ipsum</summary>
@@ -17,6 +18,7 @@
   <summary xml:lang="pt_BR">Um utilitário simples e gratuito para gerar texto Lorem Ipsum padrão</summary>
   <summary xml:lang="it">Un'utilità semplice e gratuita per generare testo Lorem Ipsum standard</summary>
   <summary xml:lang="ru">Простая и бесплатная утилита для генерации стандартного текста Lorem Ipsum</summary>
+  <summary xml:lang="uk">Простий та безкоштовний інструмент для генерації стандартного тексту Lorem Ipsum</summary>
   <summary xml:lang="ja">標準的なLorem Ipsumテキストを生成するシンプルで無料なユーティリティ</summary>
   <description>
     <p>A simple and configurable Lorem Ipsum generator built with Rust, GTK4 and Relm4.</p>
@@ -26,7 +28,7 @@
       <li>Configurable output: set maximum words, sentences, and number of paragraphs</li>
       <li>Option to start with the classic "Lorem ipsum" prefix</li>
       <li>Available in GUI and CLI modes</li>
-      <li>Multilingual interface supporting 8 languages</li>
+      <li>Multilingual interface supported</li>
     </ul>
   </description>
   <description xml:lang="es">
@@ -37,7 +39,7 @@
       <li>Salida configurable: establece palabras máximas, oraciones y número de párrafos</li>
       <li>Opción para comenzar con el prefijo clásico "Lorem ipsum"</li>
       <li>Disponible en modos GUI y CLI</li>
-      <li>Interfaz multilingüe compatible con 8 idiomas</li>
+      <li>Interfaz multilingüe compatible</li>
     </ul>
   </description>
   <description xml:lang="de">
@@ -48,7 +50,7 @@
       <li>Konfigurierbare Ausgabe: stelle maximale Wörter, Sätze und Anzahl der Absätze ein</li>
       <li>Option zum Start mit dem klassischen "Lorem ipsum" Präfix</li>
       <li>Verfügbar in GUI- und CLI-Modi</li>
-      <li>Mehrsprachige Oberfläche mit Unterstützung für 8 Sprachen</li>
+      <li>Mehrsprachige Oberfläche verfügbar</li>
     </ul>
   </description>
   <description xml:lang="fr">
@@ -59,7 +61,7 @@
       <li>Sortie configurable: définissez les mots maximums, les phrases et le nombre de paragraphes</li>
       <li>Option pour commencer avec le préfixe classique "Lorem ipsum"</li>
       <li>Disponible en modes GUI et CLI</li>
-      <li>Interface multilingue supportant 8 langues</li>
+      <li>Interface multilingue disponible</li>
     </ul>
   </description>
   <description xml:lang="pt_BR">
@@ -70,7 +72,7 @@
       <li>Saída configurável: defina palavras máximas, frases e número de parágrafos</li>
       <li>Opção para começar com o prefixo clássico "Lorem ipsum"</li>
       <li>Disponível nos modos GUI e CLI</li>
-      <li>Interface multilíngue com suporte para 8 idiomas</li>
+      <li>Interface multilíngue disponível</li>
     </ul>
   </description>
   <description xml:lang="it">
@@ -81,7 +83,7 @@
       <li>Output configurabile: imposta parole massime, frasi e numero di paragrafi</li>
       <li>Opzione per iniziare con il prefisso classico "Lorem ipsum"</li>
       <li>Disponibile in modalità GUI e CLI</li>
-      <li>Interfaccia multilingue che supporta 8 lingue</li>
+      <li>Interfaccia multilingue disponibile</li>
     </ul>
   </description>
   <description xml:lang="ru">
@@ -92,7 +94,18 @@
       <li>Настраиваемый вывод: установите максимум слов, предложений и количество абзацев</li>
       <li>Опция начала с классического префикса "Lorem ipsum"</li>
       <li>Доступен в режимах GUI и CLI</li>
-      <li>Многоязычный интерфейс с поддержкой 8 языков</li>
+      <li>Многоязычный интерфейс поддерживается</li>
+    </ul>
+  </description>
+  <description xml:lang="uk">
+    <p>Простий та настроюваний генератор Lorem Ipsum, створений за допомогою Rust, GTK4 та Relm4.</p>
+    <p>Можливості:</p>
+    <ul>
+      <li>Генерація тексту-замінника Lorem Ipsum для ваших дизайнів та макетів</li>
+      <li>Настроюваний вивід: встановіть максимум слів, речень і кількість абзаців</li>
+      <li>Опція початку з класичного префіксу "Lorem ipsum"</li>
+      <li>Доступний у режимах GUI та CLI</li>
+      <li>Багатомовний інтерфейс підтримується</li>
     </ul>
   </description>
   <description xml:lang="ja">
@@ -103,7 +116,7 @@
       <li>設定可能な出力: 最大単語数、文数、段落数を設定</li>
       <li>古典的な「Lorem ipsum」プレフィックスで開始するオプション</li>
       <li>GUIおよびCLIモードで利用可能</li>
-      <li>8言語をサポートする多言語インターフェース</li>
+      <li>多言語インターフェース対応</li>
     </ul>
   </description>
   <url type="homepage">https://github.com/XRayAdams/loremgenerator-rs</url>
@@ -126,6 +139,7 @@
     <lang percentage="100">pt_BR</lang>
     <lang percentage="100">it</lang>
     <lang percentage="100">ru</lang>
+    <lang percentage="100">uk</lang>
     <lang percentage="100">ja</lang>
   </languages>
 </component>

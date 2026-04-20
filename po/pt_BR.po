@@ -41,5 +41,17 @@ msgstr "_Copiar para a Área de Transferência"
 msgid "Copied to clipboard"
 msgstr "Copiado para a área de transferência"
 
+msgid "Words"
+msgstr "Palavras"
+
+msgid "Sentences"
+msgstr "Frases"
+
+msgid "Characters (with spaces)"
+msgstr "Caracteres (com espaços)"
+
+msgid "Characters (no spaces)"
+msgstr "Caracteres (sem espaços)"
+
 msgid "Lorem Ipsum Generator"
 msgstr "Gerador de Lorem Ipsum"

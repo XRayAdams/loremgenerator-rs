@@ -41,5 +41,17 @@ msgstr "_Copier dans le presse-papiers"
 msgid "Copied to clipboard"
 msgstr "Copié dans le presse-papiers"
 
+msgid "Words"
+msgstr "Mots"
+
+msgid "Sentences"
+msgstr "Phrases"
+
+msgid "Characters (with spaces)"
+msgstr "Caractères (avec espaces)"
+
+msgid "Characters (no spaces)"
+msgstr "Caractères (sans espaces)"
+
 msgid "Lorem Ipsum Generator"
 msgstr "Générateur Lorem Ipsum"

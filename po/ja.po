@@ -41,5 +41,17 @@ msgstr "クリップボードにコピー(_C)"
 msgid "Copied to clipboard"
 msgstr "クリップボードにコピーしました"
 
+msgid "Words"
+msgstr "単語数"
+
+msgid "Sentences"
+msgstr "文数"
+
+msgid "Characters (with spaces)"
+msgstr "文字数（スペースを含む）"
+
+msgid "Characters (no spaces)"
+msgstr "文字数（スペースを除く）"
+
 msgid "Lorem Ipsum Generator"
 msgstr "Lorem Ipsum ジェネレーター"

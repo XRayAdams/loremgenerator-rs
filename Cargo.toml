@@ -1,7 +1,15 @@
 [package]
 name = "loremgenerator"
-version = "2.4.9+45"
+version = "2.5.10+50"
 edition = "2024"
+description = "A simple and free utility to generate standard Lorem Ipsum text."
+license = "MIT"
+repository = "https://github.com/XRayAdams/loremgenerator-rs"
+copyright = "2025,26 Konstantin Adamov <xrayadamo@gmail.com>"
+homepage = "https://github.com/XRayAdams/loremgenerator-rs"
+keywords = ["lorem", "lorem ipsum", "generator", "lorem generator"]
+categories = ["gui","utils"]
+authors = ["Konstantin Adamov <xrayadamo@gmail.com>"]
 
 [dependencies]
 relm4 = { version = "0.10.0", features = ["libadwaita"] }

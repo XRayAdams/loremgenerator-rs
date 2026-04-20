@@ -41,5 +41,17 @@ msgstr "In _Zwischenablage kopieren"
 msgid "Copied to clipboard"
 msgstr "In Zwischenablage kopiert"
 
+msgid "Words"
+msgstr "Wörter"
+
+msgid "Sentences"
+msgstr "Sätze"
+
+msgid "Characters (with spaces)"
+msgstr "Zeichen (mit Leerzeichen)"
+
+msgid "Characters (no spaces)"
+msgstr "Zeichen (ohne Leerzeichen)"
+
 msgid "Lorem Ipsum Generator"
 msgstr "Lorem Ipsum Generator"

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the loremgenerator package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR Konstantin Adamov, 2025.
 #
 msgid ""
 msgstr ""
@@ -40,5 +40,18 @@ msgstr ""
 msgid "Copied to clipboard"
 msgstr ""
 
+msgid "Words"
+msgstr ""
+
 msgid "Lorem Ipsum Generator"
 msgstr ""
+
+msgid "Sentences"
+msgstr ""
+
+msgid "Characters (with spaces)"
+msgstr ""
+
+msgid "Characters (no spaces)"
+msgstr ""
+
