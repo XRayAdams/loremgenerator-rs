@@ -30,7 +30,7 @@ msgid "Paragraphs"
 msgstr "Akapity"
 
 msgid "Start with 'Lorem ipsum'"
-msgstr "Zacznij od „Lorem ipsum""
+msgstr "Zacznij od 'Lorem ipsum'"
 
 msgid "_Generate"
 msgstr "_Generuj"
