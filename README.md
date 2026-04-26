@@ -16,30 +16,6 @@ A simple and configurable Lorem Ipsum generator built with Rust, GTK4 and Relm4.
 ## Translations
 
 The application supports multiple languages:
-- **English** (default)
-- **Spanish** (español)
-- **German** (Deutsch)
-- **French** (Français)
-- **Portuguese** (Português - Brasil)
-- **Italian** (Italiano)
-- **Russian** (Русский)
-- **Japanese** (日本語)
-
-To run the application in a specific language:
-```bash
-LANGUAGE=es loremgenerator     # Spanish
-LANGUAGE=de loremgenerator     # German
-LANGUAGE=fr loremgenerator     # French
-LANGUAGE=pt_BR loremgenerator  # Portuguese (Brazilian)
-LANGUAGE=it loremgenerator     # Italian
-LANGUAGE=ru loremgenerator     # Russian
-LANGUAGE=ja loremgenerator     # Japanese
-```
-
-Or use the interactive script to choose your language:
-```bash
-./run_localized.sh
-```
 
 For more information about translations, including how to add new languages, see [TRANSLATIONS.md](TRANSLATIONS.md).
 

@@ -1,0 +1,57 @@
+# Simplified Chinese translation for loremgenerator.
+# Copyright (C) 2026 Konstantin Adamov
+# This file is distributed under the same license as the loremgenerator package.
+# Konstantin Adamov, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: loremgenerator 2.3.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-05 12:00+0000\n"
+"PO-Revision-Date: 2026-04-25 12:00+0000\n"
+"Last-Translator: Konstantin Adamov\n"
+"Language-Team: Simplified Chinese\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "_About"
+msgstr "关于(_A)"
+
+msgid "Max Words"
+msgstr "最多单词数"
+
+msgid "Max Sentences"
+msgstr "最多句子数"
+
+msgid "Paragraphs"
+msgstr "段落"
+
+msgid "Start with 'Lorem ipsum'"
+msgstr "以"Lorem ipsum"开头"
+
+msgid "_Generate"
+msgstr "生成(_G)"
+
+msgid "_Copy to Clipboard"
+msgstr "复制到剪贴板(_C)"
+
+msgid "Copied to clipboard"
+msgstr "已复制到剪贴板"
+
+msgid "Words"
+msgstr "单词数"
+
+msgid "Lorem Ipsum Generator"
+msgstr "Lorem Ipsum 生成器"
+
+msgid "Sentences"
+msgstr "句子数"
+
+msgid "Characters (with spaces)"
+msgstr "字符数（含空格）"
+
+msgid "Characters (no spaces)"
+msgstr "字符数（不含空格）"

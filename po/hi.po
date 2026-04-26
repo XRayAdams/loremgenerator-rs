@@ -1,0 +1,57 @@
+# Hindi translation for loremgenerator.
+# Copyright (C) 2026 Konstantin Adamov
+# This file is distributed under the same license as the loremgenerator package.
+# Konstantin Adamov, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: loremgenerator 2.3.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-05 12:00+0000\n"
+"PO-Revision-Date: 2026-04-25 12:00+0000\n"
+"Last-Translator: Konstantin Adamov\n"
+"Language-Team: Hindi\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "_About"
+msgstr "_के बारे में"
+
+msgid "Max Words"
+msgstr "अधिकतम शब्द"
+
+msgid "Max Sentences"
+msgstr "अधिकतम वाक्य"
+
+msgid "Paragraphs"
+msgstr "अनुच्छेद"
+
+msgid "Start with 'Lorem ipsum'"
+msgstr "'Lorem ipsum' से शुरू करें"
+
+msgid "_Generate"
+msgstr "_उत्पन्न करें"
+
+msgid "_Copy to Clipboard"
+msgstr "क्लिपबोर्ड में _कॉपी करें"
+
+msgid "Copied to clipboard"
+msgstr "क्लिपबोर्ड में कॉपी किया गया"
+
+msgid "Words"
+msgstr "शब्द"
+
+msgid "Lorem Ipsum Generator"
+msgstr "Lorem Ipsum जनरेटर"
+
+msgid "Sentences"
+msgstr "वाक्य"
+
+msgid "Characters (with spaces)"
+msgstr "अक्षर (रिक्त स्थान सहित)"
+
+msgid "Characters (no spaces)"
+msgstr "अक्षर (रिक्त स्थान के बिना)"
