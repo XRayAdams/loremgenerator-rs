@@ -30,7 +30,7 @@ msgid "Paragraphs"
 msgstr "段落"
 
 msgid "Start with 'Lorem ipsum'"
-msgstr "以"Lorem ipsum"开头"
+msgstr "以'Lorem ipsum'开头"
 
 msgid "_Generate"
 msgstr "生成(_G)"
