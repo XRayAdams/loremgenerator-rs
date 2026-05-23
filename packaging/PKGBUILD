@@ -1,7 +1,7 @@
 # Maintainer: Konstantin Adamov <xrayadamo@gmail.com>
 pkgname=loremgenerator
-pkgver=2.5.12
-pkgrel=53
+pkgver=2.5.13
+pkgrel=54
 pkgdesc="A simple and configurable Lorem Ipsum generator built with Rust, GTK4 and Relm4"
 arch=('x86_64' 'aarch64')
 url="https://github.com/XRayAdams/loremgenerator-rs"
