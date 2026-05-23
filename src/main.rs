@@ -144,6 +144,7 @@ impl SimpleComponent for App {
                         set_spacing: SPACING_MEDIUM,
                         set_margin_horizontal: SPACING_MEDIUM,
                         set_margin_top: SPACING_MEDIUM,
+                        set_hexpand: true,
 
                         NumberEditor {
                             set_label: &tr!("Max Words"),
