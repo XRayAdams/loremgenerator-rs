@@ -55,3 +55,6 @@ msgstr "Rakstzīmes (ar atstarpēm)"
 
 msgid "Characters (no spaces)"
 msgstr "Rakstzīmes (bez atstarpēm)"
+
+msgid "Settings"
+msgstr "Iestatījumi"

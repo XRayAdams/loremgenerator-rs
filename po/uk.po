@@ -55,3 +55,6 @@ msgstr "Символи (без пробілів)"
 
 msgid "Lorem Ipsum Generator"
 msgstr "Генератор Lorem Ipsum"
+
+msgid "Settings"
+msgstr "Налаштування"

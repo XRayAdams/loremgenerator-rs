@@ -68,6 +68,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <a href="screenshots/screenshot01.png"><img src="screenshots/screenshot01.png" alt="Screenshot 1" width="800"/></a>
 <a href="screenshots/screenshot02.png"><img src="screenshots/screenshot02.png" alt="Screenshot 2" width="800"/></a>
+<a href="screenshots/screenshot03.png"><img src="screenshots/screenshot03.png" alt="Collapsed" width="800"/></a>
 
 ## Installation sources
 <a href="https://github.com/XRayAdams/loremgenerator-rs/releases">

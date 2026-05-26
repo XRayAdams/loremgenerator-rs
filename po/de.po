@@ -55,3 +55,6 @@ msgstr "Zeichen (ohne Leerzeichen)"
 
 msgid "Lorem Ipsum Generator"
 msgstr "Lorem Ipsum Generator"
+
+msgid "Settings"
+msgstr "Einstellungen"

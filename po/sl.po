@@ -55,3 +55,6 @@ msgstr "Znaki (s presledki)"
 
 msgid "Characters (no spaces)"
 msgstr "Znaki (brez presledkov)"
+
+msgid "Settings"
+msgstr "Nastavitve"

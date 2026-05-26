@@ -130,6 +130,10 @@
       <image>https://raw.githubusercontent.com/XRayAdams/loremgenerator-rs/refs/heads/master/screenshots/screenshot02.png</image>
       <caption>Main window UI</caption>
     </screenshot>
+    <screenshot >
+      <image>https://raw.githubusercontent.com/XRayAdams/loremgenerator-rs/refs/heads/master/screenshots/screenshot03.png</image>
+      <caption>Collapsed Sidebar</caption>
+    </screenshot>
   </screenshots>
   <languages>
     <lang percentage="100">en</lang>

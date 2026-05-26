@@ -1,6 +1,7 @@
 // Copyright (c) 2025, 2026 Konstantin Adamov. Licensed under MIT.
 
 use adw::ToastOverlay;
+use adw::prelude::*;
 use clap::Parser;
 use gtk4::prelude::*;
 use gtk4::{Align, IconTheme, PolicyType, TextBuffer, TextView, gio, glib};
@@ -54,6 +55,7 @@ struct App {
     sentence_count: usize,
     toast_overlay: Option<ToastOverlay>,
     text_view: Option<TextView>,
+    is_collapsed: bool,
 }
 
 #[derive(Debug)]
@@ -64,6 +66,7 @@ enum Messages {
     UpdateParagraphs(usize),
     ToggleStartWithLorem(bool),
     CopyToClipboard,
+    SetCollapsed(bool)
 }
 
 impl App {
@@ -122,143 +125,196 @@ impl SimpleComponent for App {
         main_window = adw::ApplicationWindow {
             set_visible: true,
             set_title: Some(APP_NAME),
-            set_default_size: (800, 600),
+            set_default_size: (900, 600),
 
             #[name = "toast_overlay"]
             adw::ToastOverlay {
 
-                gtk::Box {
-                    set_orientation: gtk::Orientation::Vertical,
+                #[name = "split_view"]
+                adw::OverlaySplitView {
+                    connect_collapsed_notify[sender] => move |sv| {
+                        sender.input(Messages::SetCollapsed(sv.is_collapsed()));
+                    },
+                    set_max_sidebar_width: 180.0,
 
-                    adw::HeaderBar {
-                        pack_end = &gtk::MenuButton {
-                            set_icon_name: "open-menu-symbolic",
-                            set_menu_model: Some(&main_menu),
-                            set_direction: gtk::ArrowType::Down,
-                            set_can_focus: false,
+                    #[wrap(Some)]
+                    set_sidebar = &adw::NavigationPage {
+                        set_title: &tr!("Settings"),
+                        #[wrap(Some)]
+                        set_child = &adw::ToolbarView {
+                            add_top_bar = &adw::HeaderBar { 
+                                
+                            },
+
+                            #[wrap(Some)]
+                            set_content = &gtk::Box {
+                                set_orientation: gtk::Orientation::Vertical,
+                                set_spacing: SPACING_MEDIUM,
+                                set_margin_bottom: SPACING_MEDIUM,
+                                set_margin_start: SPACING_MEDIUM,
+                                set_margin_end: SPACING_MEDIUM,
+
+                                NumberEditor {
+                                    set_label: &tr!("Max Words"),
+                                    set_min: 6.0,
+                                    set_max: 100.0,
+                                    set_value: model.max_words as f64,
+                                    connect_value_changed[sender] => move |_, value| {
+                                        sender.input(Messages::UpdateMaxWords(value as usize));
+                                    },
+                                },
+
+                                NumberEditor {
+                                    set_label: &tr!("Max Sentences"),
+                                    set_min: 1.0,
+                                    set_max: 20.0,
+                                    set_value: model.max_sentences as f64,
+                                    connect_value_changed[sender] => move |_, value| {
+                                        sender.input(Messages::UpdateMaxSentences(value as usize));
+                                    },
+                                },
+
+                                NumberEditor {
+                                    set_label: &tr!("Paragraphs"),
+                                    set_min: 1.0,
+                                    set_max: 50.0,
+                                    set_value: model.paragraphs as f64,
+                                    connect_value_changed[sender] => move |_, value| {
+                                        sender.input(Messages::UpdateParagraphs(value as usize));
+                                    },
+                                },
+
+                                gtk::Box {
+                                    set_orientation: gtk::Orientation::Vertical,
+                                    set_spacing: 5,
+                                    set_halign: Align::Start,
+                                    set_margin_top: 4,
+                                    set_margin_bottom: 4,
+                                    gtk::Label {
+                                        set_label: &tr!("Start with 'Lorem ipsum'"),
+                                    },
+                                    gtk::Switch {
+                                        set_active: model.start_with_lorem,
+                                        set_halign: Align::Start,
+                                        connect_state_set[sender] => move |_, state| {
+                                            let _ = sender.input(Messages::ToggleStartWithLorem(state));
+                                            glib::Propagation::Proceed
+                                        },
+                                    }
+                                },
+                            }
                         }
                     },
 
-                    gtk::Box{
-                        set_orientation: gtk::Orientation::Horizontal,
-                        set_spacing: SPACING_MEDIUM,
-                        set_margin_horizontal: SPACING_MEDIUM,
-                        set_margin_top: SPACING_MEDIUM,
-                        set_hexpand: true,
+                    #[wrap(Some)]
+                    set_content = &adw::NavigationPage {
+                        set_title: APP_NAME,
 
-                        NumberEditor {
-                            set_label: &tr!("Max Words"),
-                            set_min: 6.0,
-                            set_max: 100.0,
-                            set_value: model.max_words as f64,
-                            connect_value_changed[sender] => move |_, value| {
-                                sender.input(Messages::UpdateMaxWords(value as usize));
+                        #[wrap(Some)]
+                        set_child = &adw::ToolbarView {
+                            add_top_bar = &adw::HeaderBar {
+                                pack_start = &gtk4::Button {
+                                    set_icon_name: "sidebar-show-symbolic",
+                                    set_can_focus: false,
+                                    #[watch]
+                                    set_visible: model.is_collapsed,
+                                    connect_clicked[split_view] => move |_| {
+                                        split_view.set_show_sidebar(true);
+                                    },
+                                },
+                                pack_end = &gtk::MenuButton {
+                                    set_icon_name: "open-menu-symbolic",
+                                    set_menu_model: Some(&main_menu),
+                                    set_direction: gtk::ArrowType::Down,
+                                    set_can_focus: false,
+                                }
                             },
-                        },
 
-                        NumberEditor {
-                            set_label: &tr!("Max Sentences"),
-                            set_min: 1.0,
-                            set_max: 20.0,
-                            set_value: model.max_sentences as f64,
-                            connect_value_changed[sender] => move |_, value| {
-                                sender.input(Messages::UpdateMaxSentences(value as usize));
-                            },
-                        },
+                            #[wrap(Some)]
+                            set_content = &gtk::Box {
+                                set_orientation: gtk::Orientation::Vertical,
+                                set_vexpand: true,
 
-                        NumberEditor {
-                            set_label: &tr!("Paragraphs"),
-                            set_min: 1.0,
-                            set_max: 50.0,
-                            set_value: model.paragraphs as f64,
-                            connect_value_changed[sender] => move |_, value| {
-                                sender.input(Messages::UpdateParagraphs(value as usize));
-                            },
-                        },
+                                gtk::Box {
+                                    set_orientation: gtk::Orientation::Vertical,
+                                    set_margin_horizontal: SPACING_MEDIUM,
+                                    set_vexpand: true,
 
-                        gtk::Box{
-                            set_orientation: gtk::Orientation::Vertical,
-                            set_spacing: 5,
-                            set_halign: Align::Center,
-                            gtk::Label{
-                                set_label: &tr!("Start with 'Lorem ipsum'"),
-                            },
-                            gtk::Switch{
-                                set_active: model.start_with_lorem,
-                                set_halign: Align::Center,
-                                connect_state_set[sender] => move |_, state| {
-                                    let _ = sender.input(Messages::ToggleStartWithLorem(state));
-                                    glib::Propagation::Proceed
+                                    gtk::ScrolledWindow {
+                                        set_hscrollbar_policy: PolicyType::Never,
+                                        set_vexpand: true,
+                                        set_hexpand: true,
+
+                                        #[name = "result_text_view"]
+                                        gtk::TextView {
+                                            set_editable: false,
+                                            set_wrap_mode: gtk::WrapMode::Word,
+                                            set_left_margin: SPACING_MEDIUM,
+                                            set_right_margin: SPACING_MEDIUM,
+                                            set_top_margin: SPACING_MEDIUM,
+                                            set_bottom_margin: SPACING_MEDIUM,
+                                            add_css_class: "card",
+                                            #[watch]
+                                            set_buffer: Some(&TextBuffer::builder()
+                                                .text(model.result_text.as_str())
+                                                .build()
+                                            ),
+                                        },
+                                    },
+                                },
+
+                                gtk::Label {
+                                #[watch]
+                                set_halign: Align::Start,
+                                set_margin_horizontal: SPACING_MEDIUM,
+                                set_margin_top: SPACING_MEDIUM,
+                                set_max_width_chars: 1,
+                                set_wrap: true,
+                                set_wrap_mode: gtk::pango::WrapMode::Word,
+                                set_lines: 2,
+                                set_label: &format!("{}: {}, {}: {}, {}: {}, {}: {}",
+                                    tr!("Words"), model.word_count,
+                                    tr!("Sentences"), model.sentence_count,
+                                    tr!("Characters (with spaces)"), model.char_count_with_spaces,
+                                    tr!("Characters (no spaces)"), model.char_count_no_spaces),
+                                },
+
+                                gtk::Box {
+                                    set_halign: Align::Start,
+                                    set_spacing: SPACING_LARGE,
+                                    set_margin_horizontal: SPACING_MEDIUM,
+                                    set_margin_vertical: SPACING_MEDIUM,
+                                    gtk::Button::with_mnemonic(&tr!("_Generate")) {
+                                        set_halign: Align::Start,
+                                        connect_clicked[sender] => move |_| {
+                                            sender.input(Messages::Generate);
+                                        },
+                                    },
+                                    gtk::Button::with_mnemonic(&tr!("_Copy to Clipboard")) {
+                                        #[watch]
+                                        set_sensitive: !model.result_text.is_empty(),
+                                        set_halign: Align::Start,
+                                        connect_clicked[sender] => move|_| {
+                                            sender.input(Messages::CopyToClipboard);
+                                        },
+                                    },
                                 },
                             }
-                        },
-
-
+                        }
                     },
-                    gtk::Box{
-                        set_orientation: gtk::Orientation::Vertical,
-                        set_margin_horizontal: SPACING_MEDIUM,
-                        set_margin_top: SPACING_MEDIUM,
 
-                        gtk::ScrolledWindow {
-                            set_hscrollbar_policy: PolicyType::Never,
-                            set_vexpand: true,
-                            set_hexpand: true,
-
-                            #[name = "result_text_view"]
-                            gtk::TextView {
-                                set_editable: false,
-                                set_wrap_mode: gtk::WrapMode::Word,
-                                set_left_margin: SPACING_MEDIUM,
-                                set_right_margin: SPACING_MEDIUM,
-                                set_top_margin: SPACING_MEDIUM,
-                                set_bottom_margin: SPACING_MEDIUM,
-                                set_vexpand: true,
-                                add_css_class: "card",
-                                #[watch]
-                                set_buffer: Some(&TextBuffer::builder()
-                                    .text(model.result_text.as_str())
-                                    .build()
-                                ),
-                            },
-                        },
-                    },
-                    gtk::Box{
-                        set_orientation: gtk::Orientation::Horizontal,
-                        set_spacing: SPACING_MEDIUM,
-                        set_margin_horizontal: SPACING_MEDIUM,
-                        set_margin_top: SPACING_MEDIUM,
-                        gtk::Label{
-                            #[watch]
-                            set_label: &format!("{}: {}   {}: {}   {}: {}   {}: {}",
-                            tr!("Words"), model.word_count, 
-                            tr!("Sentences"), model.sentence_count, 
-                            tr!("Characters (with spaces)"), model.char_count_with_spaces, 
-                            tr!("Characters (no spaces)"), model.char_count_no_spaces),
-                        },
-                    },
-                    gtk::Box{
-                        set_halign: Align::Start,
-                        set_spacing: SPACING_LARGE,
-                        set_margin_horizontal: SPACING_MEDIUM,
-                        set_margin_vertical: SPACING_MEDIUM,
-                        gtk::Button::with_mnemonic(&tr!("_Generate")) {
-                            set_halign: Align::Start,
-                            connect_clicked[sender] => move |_| {
-                                sender.input(Messages::Generate);
-                            },
-                        },
-                        gtk::Button::with_mnemonic(&tr!("_Copy to Clipboard")) {
-                            #[watch]
-                            set_sensitive: !model.result_text.is_empty(),
-                            set_halign: Align::Start,
-                            connect_clicked[sender] => move|_| {
-                                sender.input(Messages::CopyToClipboard);
-                            },
-                        },
-                    },
-                }
-            }
+                },
+            },
+            add_breakpoint = bp_with_setters(
+                    adw::Breakpoint::new(
+                        adw::BreakpointCondition::new_length(
+                            adw::BreakpointConditionLengthType::MaxWidth,
+                            680.0,
+                            adw::LengthUnit::Px,
+                        )
+                    ),
+                    &[(&split_view, "collapsed", true)]
+                ),
         }
     }
 
@@ -281,6 +337,7 @@ impl SimpleComponent for App {
             start_with_lorem: settings.start_with_lorem,
             toast_overlay: None,
             text_view: None,
+            is_collapsed: false,
         };
 
         let widgets = view_output!();
@@ -354,8 +411,19 @@ impl SimpleComponent for App {
                     .unwrap()
                     .add_toast(adw::Toast::new(&tr!("Copied to clipboard")));
             }
+            Messages::SetCollapsed(state) => {
+                self.is_collapsed = state;
+            }
         }
     }
+}
+
+fn bp_with_setters(
+    bp: adw::Breakpoint,
+    additions: &[(&impl IsA<glib::Object>, &str, impl ToValue)],
+) -> adw::Breakpoint {
+    bp.add_setters(additions);
+    bp
 }
 
 fn main() {

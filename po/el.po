@@ -55,3 +55,6 @@ msgstr "Χαρακτήρες (με κενά)"
 
 msgid "Characters (no spaces)"
 msgstr "Χαρακτήρες (χωρίς κενά)"
+
+msgid "Settings"
+msgstr "Ρυθμίσεις"

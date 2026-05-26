@@ -55,3 +55,6 @@ msgstr "Caracteres (sem espaços)"
 
 msgid "Lorem Ipsum Generator"
 msgstr "Gerador de Lorem Ipsum"
+
+msgid "Settings"
+msgstr "Configurações"

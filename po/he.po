@@ -55,3 +55,6 @@ msgstr "תווים (עם רווחים)"
 
 msgid "Characters (no spaces)"
 msgstr "תווים (ללא רווחים)"
+
+msgid "Settings"
+msgstr "הגדרות"

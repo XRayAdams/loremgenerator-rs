@@ -55,3 +55,6 @@ msgstr "Znaki (ze spacjami)"
 
 msgid "Characters (no spaces)"
 msgstr "Znaki (bez spacji)"
+
+msgid "Settings"
+msgstr "Ustawienia"

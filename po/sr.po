@@ -55,3 +55,6 @@ msgstr "Знакови (са размацима)"
 
 msgid "Characters (no spaces)"
 msgstr "Знакови (без размака)"
+
+msgid "Settings"
+msgstr "Подешавања"

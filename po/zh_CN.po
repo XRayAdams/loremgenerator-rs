@@ -55,3 +55,6 @@ msgstr "字符数（含空格）"
 
 msgid "Characters (no spaces)"
 msgstr "字符数（不含空格）"
+
+msgid "Settings"
+msgstr "设置"
