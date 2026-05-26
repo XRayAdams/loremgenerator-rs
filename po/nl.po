@@ -55,3 +55,6 @@ msgstr "Tekens (met spaties)"
 
 msgid "Characters (no spaces)"
 msgstr "Tekens (zonder spaties)"
+
+msgid "Settings"
+msgstr "Instellingen"

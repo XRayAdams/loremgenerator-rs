@@ -55,3 +55,6 @@ msgstr "文字数（スペースを除く）"
 
 msgid "Lorem Ipsum Generator"
 msgstr "Lorem Ipsum ジェネレーター"
+
+msgid "Settings"
+msgstr "設定"

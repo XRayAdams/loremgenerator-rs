@@ -55,3 +55,6 @@ msgstr "Karakterek (szóközökkel)"
 
 msgid "Characters (no spaces)"
 msgstr "Karakterek (szóközök nélkül)"
+
+msgid "Settings"
+msgstr "Beállítások"

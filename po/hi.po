@@ -55,3 +55,6 @@ msgstr "अक्षर (रिक्त स्थान सहित)"
 
 msgid "Characters (no spaces)"
 msgstr "अक्षर (रिक्त स्थान के बिना)"
+
+msgid "Settings"
+msgstr "सेटिंग्स"

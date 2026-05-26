@@ -1,6 +1,6 @@
 [package]
 name = "loremgenerator"
-version = "2.5.13+54"
+version = "2.6.14+55"
 edition = "2024"
 description = "A simple and free utility to generate standard Lorem Ipsum text."
 license = "MIT"
