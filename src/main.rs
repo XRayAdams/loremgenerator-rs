@@ -264,7 +264,6 @@ impl SimpleComponent for App {
                                 },
 
                                 gtk::Label {
-                                #[watch]
                                 set_halign: Align::Start,
                                 set_margin_horizontal: SPACING_MEDIUM,
                                 set_margin_top: SPACING_MEDIUM,
@@ -272,6 +271,7 @@ impl SimpleComponent for App {
                                 set_wrap: true,
                                 set_wrap_mode: gtk::pango::WrapMode::Word,
                                 set_lines: 2,
+                                #[watch]
                                 set_label: &format!("{}: {}, {}: {}, {}: {}, {}: {}",
                                     tr!("Words"), model.word_count,
                                     tr!("Sentences"), model.sentence_count,
