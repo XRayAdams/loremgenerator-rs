@@ -1,0 +1,60 @@
+# Finnish translation for loremgenerator.
+# Copyright (C) 2026 Konstantin Adamov
+# This file is distributed under the same license as the loremgenerator package.
+# Konstantin Adamov, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: loremgenerator 2.5.11+51\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-05 12:00+0000\n"
+"PO-Revision-Date: 2026-06-02 12:00+0000\n"
+"Last-Translator: Konstantin Adamov\n"
+"Language-Team: Finnish\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "_About"
+msgstr "_Tietoja"
+
+msgid "Max Words"
+msgstr "Maks. Sanat"
+
+msgid "Max Sentences"
+msgstr "Maks. Lauseet"
+
+msgid "Paragraphs"
+msgstr "Kappaleet"
+
+msgid "Start with 'Lorem ipsum'"
+msgstr "Aloita 'Lorem ipsum' -tekstillä"
+
+msgid "_Generate"
+msgstr "_Luo"
+
+msgid "_Copy to Clipboard"
+msgstr "_Kopioi leikepöydälle"
+
+msgid "Copied to clipboard"
+msgstr "Kopioitu leikepöydälle"
+
+msgid "Words"
+msgstr "Sanat"
+
+msgid "Lorem Ipsum Generator"
+msgstr "Lorem Ipsum -generaattori"
+
+msgid "Sentences"
+msgstr "Lauseet"
+
+msgid "Characters (with spaces)"
+msgstr "Merkit (välilyönneillä)"
+
+msgid "Characters (no spaces)"
+msgstr "Merkit (ilman välilyöntejä)"
+
+msgid "Settings"
+msgstr "Asetukset"

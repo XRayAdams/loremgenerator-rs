@@ -1,0 +1,60 @@
+# Bengali translation for loremgenerator.
+# Copyright (C) 2026 Konstantin Adamov
+# This file is distributed under the same license as the loremgenerator package.
+# Konstantin Adamov, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: loremgenerator 2.5.11+51\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-05 12:00+0000\n"
+"PO-Revision-Date: 2026-06-02 12:00+0000\n"
+"Last-Translator: Konstantin Adamov\n"
+"Language-Team: Bengali\n"
+"Language: bn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "_About"
+msgstr "_সম্পর্কে"
+
+msgid "Max Words"
+msgstr "সর্বাধিক শব্দ"
+
+msgid "Max Sentences"
+msgstr "সর্বাধিক বাক্য"
+
+msgid "Paragraphs"
+msgstr "অনুচ্ছেদ"
+
+msgid "Start with 'Lorem ipsum'"
+msgstr "'Lorem ipsum' দিয়ে শুরু করুন"
+
+msgid "_Generate"
+msgstr "_তৈরি করুন"
+
+msgid "_Copy to Clipboard"
+msgstr "ক্লিপবোর্ডে _কপি করুন"
+
+msgid "Copied to clipboard"
+msgstr "ক্লিপবোর্ডে কপি হয়েছে"
+
+msgid "Words"
+msgstr "শব্দ"
+
+msgid "Lorem Ipsum Generator"
+msgstr "Lorem Ipsum জেনারেটর"
+
+msgid "Sentences"
+msgstr "বাক্য"
+
+msgid "Characters (with spaces)"
+msgstr "অক্ষর (স্পেস সহ)"
+
+msgid "Characters (no spaces)"
+msgstr "অক্ষর (স্পেস ছাড়া)"
+
+msgid "Settings"
+msgstr "সেটিংস"

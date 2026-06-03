@@ -79,6 +79,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 [![loremgenerator](https://snapcraft.io/loremgenerator/badge.svg)](https://snapcraft.io/loremgenerator)
 
+### AUR manual installation
+
+1. Download the latest `.pkg.tar.zst` package from the project's GitHub releases page.
+2. Open a terminal and navigate to the directory where you downloaded the file.
+3. Install the package using the following command:
+
+   ```bash
+   sudo pacman -U [name-of-the-package].pkg.tar.zst
+   ```
+
+Replace `[name-of-the-package].pkg.tar.zst` with the actual file name.
+
 ### DEB manual installation
 
 1. Download the latest `.deb` package from the project's GitHub releases page.
