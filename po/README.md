@@ -5,14 +5,7 @@ This directory contains translation files for the Lorem Ipsum Generator applicat
 ## Files
 
 - `loremgenerator.pot` - Translation template with all translatable strings
-- `es.po` - Spanish translation
-- `de.po` - German translation
-- `fr.po` - French translation
-- `pt_BR.po` - Portuguese (Brazilian) translation
-- `it.po` - Italian translation
-- `ru.po` - Russian translation
-- `ja.po` - Japanese translation
-- `uk.po` - Ukrainian translation
+- `*.po` - translation for specifiec language
 
 Compiled translations (.mo files) are generated during build and placed in:
 ```
@@ -62,11 +55,7 @@ To test translations:
 LANGUAGE=es ./target/debug/loremgenerator     # Spanish
 LANGUAGE=de ./target/debug/loremgenerator     # German
 LANGUAGE=fr ./target/debug/loremgenerator     # French
-LANGUAGE=pt_BR ./target/debug/loremgenerator  # Portuguese (Brazilian)
-LANGUAGE=it ./target/debug/loremgenerator     # Italian
-LANGUAGE=ru ./target/debug/loremgenerator     # Russian
-LANGUAGE=ja ./target/debug/loremgenerator     # Japanese
-LANGUAGE=uk ./target/debug/loremgenerator     # Ukrainian
+and so on
 ```
 
 Or use the interactive convenience script:
