@@ -58,3 +58,9 @@ msgstr "Rakstzīmes (bez atstarpēm)"
 
 msgid "Settings"
 msgstr "Iestatījumi"
+
+msgid "_Save to File"
+msgstr "Saglabāt failā"
+
+msgid "Saved to file"
+msgstr "Saglabāts failā"

@@ -58,3 +58,9 @@ msgstr "字元數（不含空格）"
 
 msgid "Settings"
 msgstr "設定"
+
+msgid "_Save to File"
+msgstr "儲存至檔案"
+
+msgid "Saved to file"
+msgstr "已儲存至檔案"

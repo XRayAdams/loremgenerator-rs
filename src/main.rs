@@ -56,6 +56,7 @@ struct App {
     toast_overlay: Option<ToastOverlay>,
     text_view: Option<TextView>,
     is_collapsed: bool,
+    window: Option<adw::ApplicationWindow>,
 }
 
 #[derive(Debug)]
@@ -66,7 +67,8 @@ enum Messages {
     UpdateParagraphs(usize),
     ToggleStartWithLorem(bool),
     CopyToClipboard,
-    SetCollapsed(bool)
+    SetCollapsed(bool),
+    SaveToFile,
 }
 
 impl App {
@@ -298,6 +300,14 @@ impl SimpleComponent for App {
                                             sender.input(Messages::CopyToClipboard);
                                         },
                                     },
+                                    gtk::Button::with_mnemonic(&tr!("_Save to File")) {
+                                        #[watch]
+                                        set_sensitive: !model.result_text.is_empty(),
+                                        set_halign: Align::Start,
+                                        connect_clicked[sender] => move|_| {
+                                            sender.input(Messages::SaveToFile);
+                                        },
+                                    },
                                 },
                             }
                         }
@@ -336,6 +346,7 @@ impl SimpleComponent for App {
             sentence_count: 0,
             start_with_lorem: settings.start_with_lorem,
             toast_overlay: None,
+            window: None,
             text_view: None,
             is_collapsed: false,
         };
@@ -344,6 +355,7 @@ impl SimpleComponent for App {
 
         model.toast_overlay = Some(widgets.toast_overlay.clone());
         model.text_view = Some(widgets.result_text_view.clone());
+        model.window = Some(root.clone());
 
         let about_action =
             create_about_action(widgets.main_window.clone(), Self::get_app_version());
@@ -413,6 +425,29 @@ impl SimpleComponent for App {
             }
             Messages::SetCollapsed(state) => {
                 self.is_collapsed = state;
+            }
+            Messages::SaveToFile => {
+                let window = self.window.clone();
+                let toast_overlay = self.toast_overlay.clone();
+                let result_text = self.result_text.clone();
+
+                let dialog = gtk4::FileDialog::builder()
+                    .initial_name("output.txt")
+                    .build();
+
+                dialog.save(window.as_ref(), gio::Cancellable::NONE, move |result| {
+                    if let Ok(file) = result {
+                        if let Some(path) = file.path() {
+                            let _ = std::fs::write(&path, result_text.as_str());
+
+                            toast_overlay
+                                .clone()
+                                .unwrap()
+                                .add_toast(adw::Toast::new(&tr!("Saved to file")));
+                        }
+                    }
+                });
+                
             }
         }
     }

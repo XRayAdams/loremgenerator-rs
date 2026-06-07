@@ -58,3 +58,9 @@ msgstr "অক্ষর (স্পেস ছাড়া)"
 
 msgid "Settings"
 msgstr "সেটিংস"
+
+msgid "_Save to File"
+msgstr "ফাইলে সংরক্ষণ করুন"
+
+msgid "Saved to file"
+msgstr "ফাইলে সংরক্ষিত হয়েছে"

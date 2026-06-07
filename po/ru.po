@@ -58,3 +58,9 @@ msgstr "Генератор Lorem Ipsum"
 
 msgid "Settings"
 msgstr "Настройки"
+
+msgid "_Save to File"
+msgstr "Сохранить в файл"
+
+msgid "Saved to file"
+msgstr "Сохранено в файл"

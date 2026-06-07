@@ -58,3 +58,9 @@ msgstr "Χαρακτήρες (χωρίς κενά)"
 
 msgid "Settings"
 msgstr "Ρυθμίσεις"
+
+msgid "_Save to File"
+msgstr "Αποθήκευση σε αρχείο"
+
+msgid "Saved to file"
+msgstr "Αποθηκεύτηκε σε αρχείο"

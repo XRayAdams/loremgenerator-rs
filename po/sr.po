@@ -58,3 +58,9 @@ msgstr "Знакови (без размака)"
 
 msgid "Settings"
 msgstr "Подешавања"
+
+msgid "_Save to File"
+msgstr "Сачувај у датотеку"
+
+msgid "Saved to file"
+msgstr "Сачувано у датотеку"

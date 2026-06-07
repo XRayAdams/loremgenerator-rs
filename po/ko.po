@@ -58,3 +58,9 @@ msgstr "글자 수 (공백 제외)"
 
 msgid "Settings"
 msgstr "설정"
+
+msgid "_Save to File"
+msgstr "파일에 저장"
+
+msgid "Saved to file"
+msgstr "파일에 저장되었습니다"

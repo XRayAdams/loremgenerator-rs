@@ -58,3 +58,9 @@ msgstr "Karakter (tanpa spasi)"
 
 msgid "Settings"
 msgstr "Pengaturan"
+
+msgid "_Save to File"
+msgstr "Simpan ke File"
+
+msgid "Saved to file"
+msgstr "Disimpan ke file"

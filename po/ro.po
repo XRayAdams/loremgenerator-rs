@@ -58,3 +58,9 @@ msgstr "Caractere (fără spații)"
 
 msgid "Settings"
 msgstr "Setări"
+
+msgid "_Save to File"
+msgstr "Salvează în fișier"
+
+msgid "Saved to file"
+msgstr "Salvat în fișier"

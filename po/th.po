@@ -58,3 +58,9 @@ msgstr "ตัวอักษร (ไม่รวมช่องว่าง)"
 
 msgid "Settings"
 msgstr "การตั้งค่า"
+
+msgid "_Save to File"
+msgstr "บันทึกไปยังไฟล์"
+
+msgid "Saved to file"
+msgstr "บันทึกไปยังไฟล์แล้ว"

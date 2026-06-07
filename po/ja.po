@@ -58,3 +58,9 @@ msgstr "Lorem Ipsum ジェネレーター"
 
 msgid "Settings"
 msgstr "設定"
+
+msgid "_Save to File"
+msgstr "ファイルに保存"
+
+msgid "Saved to file"
+msgstr "ファイルに保存しました"

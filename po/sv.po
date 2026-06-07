@@ -58,3 +58,9 @@ msgstr "Tecken (utan mellanslag)"
 
 msgid "Settings"
 msgstr "Inställningar"
+
+msgid "_Save to File"
+msgstr "Spara till fil"
+
+msgid "Saved to file"
+msgstr "Sparad till fil"

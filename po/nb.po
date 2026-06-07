@@ -58,3 +58,9 @@ msgstr "Tegn (uten mellomrom)"
 
 msgid "Settings"
 msgstr "Innstillinger"
+
+msgid "_Save to File"
+msgstr "Lagre til fil"
+
+msgid "Saved to file"
+msgstr "Lagret til fil"
