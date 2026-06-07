@@ -57,3 +57,9 @@ msgstr ""
 
 msgid "Settings"
 msgstr ""
+
+msgid "_Save to File"
+msgstr ""
+
+msgid "Saved to file"
+msgstr ""

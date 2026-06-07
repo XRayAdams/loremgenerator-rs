@@ -58,3 +58,9 @@ msgstr "Lorem Ipsum Generator"
 
 msgid "Settings"
 msgstr "Einstellungen"
+
+msgid "_Save to File"
+msgstr "In _Datei speichern"
+
+msgid "Saved to file"
+msgstr "In Datei gespeichert"

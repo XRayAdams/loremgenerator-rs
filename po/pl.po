@@ -58,3 +58,9 @@ msgstr "Znaki (bez spacji)"
 
 msgid "Settings"
 msgstr "Ustawienia"
+
+msgid "_Save to File"
+msgstr "Zapisz do pliku"
+
+msgid "Saved to file"
+msgstr "Zapisano do pliku"

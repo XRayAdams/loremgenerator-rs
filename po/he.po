@@ -58,3 +58,9 @@ msgstr "תווים (ללא רווחים)"
 
 msgid "Settings"
 msgstr "הגדרות"
+
+msgid "_Save to File"
+msgstr "שמור לקובץ"
+
+msgid "Saved to file"
+msgstr "נשמר לקובץ"

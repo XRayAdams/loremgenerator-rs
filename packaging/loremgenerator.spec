@@ -1,6 +1,6 @@
 %define _name loremgenerator
-%define _version 2.6.15
-%define _release 57
+%define _version 2.7.18
+%define _release 59
 %define debug_package %{nil}
 
 Name: %{_name}

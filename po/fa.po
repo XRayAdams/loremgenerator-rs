@@ -58,3 +58,9 @@ msgstr "کاراکترها (بدون فاصله)"
 
 msgid "Settings"
 msgstr "تنظیمات"
+
+msgid "_Save to File"
+msgstr "ذخیره در فایل"
+
+msgid "Saved to file"
+msgstr "در فایل ذخیره شد"

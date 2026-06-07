@@ -58,3 +58,9 @@ msgstr "Merkit (ilman välilyöntejä)"
 
 msgid "Settings"
 msgstr "Asetukset"
+
+msgid "_Save to File"
+msgstr "Tallenna tiedostoon"
+
+msgid "Saved to file"
+msgstr "Tallennettu tiedostoon"

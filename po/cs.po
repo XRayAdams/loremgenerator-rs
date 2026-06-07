@@ -58,3 +58,9 @@ msgstr "Znaky (bez mezer)"
 
 msgid "Settings"
 msgstr "Nastavení"
+
+msgid "_Save to File"
+msgstr "Uložit do souboru"
+
+msgid "Saved to file"
+msgstr "Uloženo do souboru"

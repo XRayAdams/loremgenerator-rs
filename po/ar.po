@@ -58,3 +58,9 @@ msgstr "أحرف (بدون مسافات)"
 
 msgid "Settings"
 msgstr "الإعدادات"
+
+msgid "_Save to File"
+msgstr "_حفظ في ملف"
+
+msgid "Saved to file"
+msgstr "تم الحفظ في ملف"

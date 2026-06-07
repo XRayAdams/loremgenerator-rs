@@ -58,3 +58,9 @@ msgstr "अक्षर (रिक्त स्थान के बिना)"
 
 msgid "Settings"
 msgstr "सेटिंग्स"
+
+msgid "_Save to File"
+msgstr "फ़ाइल में सहेजें"
+
+msgid "Saved to file"
+msgstr "फ़ाइल में सहेजा गया"

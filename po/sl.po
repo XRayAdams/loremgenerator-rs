@@ -58,3 +58,9 @@ msgstr "Znaki (brez presledkov)"
 
 msgid "Settings"
 msgstr "Nastavitve"
+
+msgid "_Save to File"
+msgstr "Shrani v datoteko"
+
+msgid "Saved to file"
+msgstr "Shranjeno v datoteko"

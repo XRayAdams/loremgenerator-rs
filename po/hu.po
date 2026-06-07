@@ -58,3 +58,9 @@ msgstr "Karakterek (szóközök nélkül)"
 
 msgid "Settings"
 msgstr "Beállítások"
+
+msgid "_Save to File"
+msgstr "Mentés fájlba"
+
+msgid "Saved to file"
+msgstr "Fájlba mentve"

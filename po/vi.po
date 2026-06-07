@@ -58,3 +58,9 @@ msgstr "Ký Tự (không có khoảng trắng)"
 
 msgid "Settings"
 msgstr "Cài Đặt"
+
+msgid "_Save to File"
+msgstr "Lưu vào tệp"
+
+msgid "Saved to file"
+msgstr "Đã lưu vào tệp"

@@ -1,6 +1,6 @@
 [package]
 name = "loremgenerator"
-version = "2.6.15+57"
+version = "2.7.18+59"
 edition = "2024"
 description = "A simple and free utility to generate standard Lorem Ipsum text."
 license = "MIT"
@@ -16,7 +16,7 @@ relm4 = { version = "0.11.0", features = ["libadwaita"] }
 relm4-macros = { version = "0.11.0"}
 relm4-components = "0.11.0"
 
-gtk4 = "0.11.3"
+gtk4 = { version = "0.11.3", features = ["v4_10"] }
 libadwaita = { version = "0.9.1", features = ["v1_5"] }
 rand = "0.10"
 serde = { version = "1.0.228", features = ["derive"] }

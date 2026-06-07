@@ -58,3 +58,9 @@ msgstr "Tekens (zonder spaties)"
 
 msgid "Settings"
 msgstr "Instellingen"
+
+msgid "_Save to File"
+msgstr "Opslaan naar bestand"
+
+msgid "Saved to file"
+msgstr "Opgeslagen naar bestand"

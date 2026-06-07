@@ -55,3 +55,9 @@ msgstr "Caracteres (com espaços)"
 
 msgid "Characters (no spaces)"
 msgstr "Caracteres (sem espaços)"
+
+msgid "_Save to File"
+msgstr "Guardar no ficheiro"
+
+msgid "Saved to file"
+msgstr "Guardado no ficheiro"
