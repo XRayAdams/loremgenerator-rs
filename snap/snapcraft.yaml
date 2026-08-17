@@ -30,10 +30,19 @@ apps:
 adopt-info: loremgenerator
 
 parts:
+  rust-deps:
+    plugin: nil
+    build-packages:
+      - curl
+    override-pull: |
+      curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable --profile minimal
+
+
   loremgenerator:
     plugin: rust
+    after: [rust-deps]
+    rust-channel: none
     source: .
-    rust-channel: stable
     parse-info: [snap/app.rayadams.loremgenerator.metainfo.xml]
     build-packages:
       - pkg-config
